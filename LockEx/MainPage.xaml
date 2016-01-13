@@ -1,0 +1,30 @@
+﻿<phone:PhoneApplicationPage x:Name="phoneApplicationPage"
+    x:Class="LockEx.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+    <Grid x:Name="LayoutRoot" Background="Black" CacheMode="BitmapCache">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="ContentPanel" Grid.Row="0" Margin="0,0,0,0">
+            <Button x:Name="ButtonUnlock" Content="Entsperren" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ButtonUnlock_Click" />
+            <TextBlock x:Name="FirstLine" HorizontalAlignment="Left" Margin="10,699,0,0" Text="First line" VerticalAlignment="Top"/>
+            <TextBlock x:Name="SecondLine" HorizontalAlignment="Left" Margin="10,731,0,0" Text="Second line" VerticalAlignment="Top"/>
+            <TextBlock x:Name="ThirdLine" HorizontalAlignment="Left" Margin="10,763,0,0" Text="Third line" VerticalAlignment="Top"/>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2014/deployment" AppPlatformVersion="8.1">
+  <DefaultLanguage xmlns="" code="de-DE" />
+  <Languages xmlns="">
+    <Language code="de-DE" />
+  </Languages>
+  <!-- HubType="268435456" -->
+  <App xmlns="" ProductID="{74bb9628-1740-4ccc-9efd-6bd8f12fd300}" Title="LockEx" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="StarGate01" Description="Extended Lock screen" SDOptOut="false" BackUpOptOut="false" Publisher="LockEx" PublisherID="{0470670f-e782-4fec-85a5-de0b180c95b9}">
+    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+    <Capabilities>
+      <Capability Name="ID_CAP_NETWORKING" />
+      <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
+       <Capability Name="ID_CAP_MEDIALIB" />
+      <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
+      <Capability Name="ID_CAP_SENSORS" />
+      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
+      <Capability Name="ID_CAP_SHELL_DEVICE_LOCK_UI_API" />
+      <Capability Name="ID_CAP_CHAMBER_PROFILE_CODE_RW" />
+      <Capability Name="ID_CAP_INTEROPSERVICES" />
+    <Capability Name="ID_CAP_DEVELOPERUNLOCK_API" />
+      <Capability Name="ID_CAP_DEVICE_MANAGEMENT" />
+      <Capability Name="ID_CAP_DEVICE_MANAGEMENT_ADMIN" />
+      <Capability Name="ID_CAP_DEVICE_MANAGEMENT_BOOTSTRAP" />
+      <Capability Name="ID_CAP_DEVICE_MANAGEMENT_SECURITY_POLICIES" />
+      <Capability Name="ID_CAP_PHONE_INTERNAL" />
+      <Capability Name="ID_CAP_RUNTIME_CONFIG" />
+      <Capability Name="ID_CAP_OEM_CUSTOM" />
+
+      <Capability Name="ID_CAP_NOCENTER_SOUNDS" /> 
+       <Capability Name="ID_CAP_SOUND_CONTROL" />
+      <Capability Name="ID_CAP_AUDIO_EVENTSND" /> 
+      <Capability Name="ID_CAP_AUDIO_INTERNAL" /> 
+     <Capability Name="ID_CAP_AUDIO_ROUTING_CONTROLLER" /> 
+     <Capability Name="ID_CAP_AUDIO_SETTINGS" />
+      
+      <Capability Name="ID_CAP_SHELL_OEM_ADMIN" />
+      <Capability Name="ID_CAP_MEDIASERVICE_VOLUMELIMIT_INT" />
+      <Capability Name="ID_CAP_SHOW_VOLUME_CONTROL" />
+      
+    </Capabilities>
+    <Tasks>
+      <DefaultTask Name="_default" NavigationPage="MainPage.xaml" ActivationPolicy="Resume" />
+    </Tasks>
+    <Tokens>
+      <PrimaryToken TokenID="LockExToken" TaskName="_default">
+        <TemplateFlip>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <Count>0</Count>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
+          <Title>Erweiterter Sperrbildschirm</Title>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI>
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <DeviceLockImageURI>
+          </DeviceLockImageURI>
+          <HasLarge>
+          </HasLarge>
+        </TemplateFlip>
+      </PrimaryToken>
+    </Tokens>
+    <Extensions>
+      <Extension ExtensionName="LockScreen_Application" ConsumerID="{CD4601F6-351B-43C7-9087-6B12BD98ED63}" TaskID="_default" ExtraFile="Extensions\\LockAppExtension.xml" />
+    </Extensions>
+    <ScreenResolutions>
+      <ScreenResolution Name="ID_RESOLUTION_WVGA" />
+      <ScreenResolution Name="ID_RESOLUTION_WXGA" />
+      <ScreenResolution Name="ID_RESOLUTION_HD720P" />
+    </ScreenResolutions>
+  </App>
+</Deployment>
