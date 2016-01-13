@@ -10,33 +10,11 @@
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
-       <Capability Name="ID_CAP_MEDIALIB" />
       <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
       <Capability Name="ID_CAP_SENSORS" />
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
       <Capability Name="ID_CAP_SHELL_DEVICE_LOCK_UI_API" />
       <Capability Name="ID_CAP_CHAMBER_PROFILE_CODE_RW" />
-      <Capability Name="ID_CAP_INTEROPSERVICES" />
-    <Capability Name="ID_CAP_DEVELOPERUNLOCK_API" />
-      <Capability Name="ID_CAP_DEVICE_MANAGEMENT" />
-      <Capability Name="ID_CAP_DEVICE_MANAGEMENT_ADMIN" />
-      <Capability Name="ID_CAP_DEVICE_MANAGEMENT_BOOTSTRAP" />
-      <Capability Name="ID_CAP_DEVICE_MANAGEMENT_SECURITY_POLICIES" />
-      <Capability Name="ID_CAP_PHONE_INTERNAL" />
-      <Capability Name="ID_CAP_RUNTIME_CONFIG" />
-      <Capability Name="ID_CAP_OEM_CUSTOM" />
-
-      <Capability Name="ID_CAP_NOCENTER_SOUNDS" /> 
-       <Capability Name="ID_CAP_SOUND_CONTROL" />
-      <Capability Name="ID_CAP_AUDIO_EVENTSND" /> 
-      <Capability Name="ID_CAP_AUDIO_INTERNAL" /> 
-     <Capability Name="ID_CAP_AUDIO_ROUTING_CONTROLLER" /> 
-     <Capability Name="ID_CAP_AUDIO_SETTINGS" />
-      
-      <Capability Name="ID_CAP_SHELL_OEM_ADMIN" />
-      <Capability Name="ID_CAP_MEDIASERVICE_VOLUMELIMIT_INT" />
-      <Capability Name="ID_CAP_SHOW_VOLUME_CONTROL" />
-      
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" ActivationPolicy="Resume" />

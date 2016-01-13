@@ -4,7 +4,7 @@
 
 **RTComponent** is a Windows Runtime Component wrapper for ```ShellChromeAPI.dll#Shell_LockScreen_GetNotificationsSnapshot```, and also loads icons from ```UIXMobileAssets{ScreenResolution}.dll```. It is tested and probably stable.
 
-**LockEx** is a Windows Phone 8.1 Silverlight App, which uses RTComponent. It is not finished and in early beta. Also it currently uses the ```ID_CAP_SHELL_DEVICE_LOCK_UI_API``` and ```ID_CAP_CHAMBER_PROFILE_CODE_R``` capabilities, so it will only work on an interop- and capability-unlocked phone.
+**LockEx** is a Windows Phone 8.1 Silverlight App, which uses RTComponent. It is not finished and in early beta. Also it currently uses the ```ID_CAP_SHELL_DEVICE_LOCK_UI_API``` and ```ID_CAP_CHAMBER_PROFILE_CODE_RW``` capabilities, so it will only work on an interop- and capability-unlocked phone.
 
 **Thanks to / Sources**: 
 - http://vilic.info/blog/archives/1138
