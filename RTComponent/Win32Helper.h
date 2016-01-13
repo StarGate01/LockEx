@@ -50,6 +50,3 @@ typedef HRSRC(*FindResourceEx)(_In_opt_ HMODULE hModule, _In_ LPCTSTR lpType, _I
 typedef HGLOBAL(*LoadResource)(_In_opt_ HMODULE hModule, _In_ HRSRC hResInfo);
 typedef DWORD(*SizeofResource)(_In_opt_ HMODULE hModule, _In_  HRSRC hResInfo);
 typedef LPVOID (*LockResource)(_In_ HGLOBAL hResData);
-
-/*typedef BOOL(*ENUMRESNAMEPROC)(_In_opt_ HMODULE hModule, _In_ LPCTSTR lpszType,	_In_ LPTSTR lpszName, _In_ LONG_PTR lParam);
-typedef BOOL(*EnumResourceNamesEx)(_In_opt_ HMODULE hModule, _In_ LPCTSTR lpszType, _In_ ENUMRESNAMEPROC lpEnumFunc, _In_ LONG_PTR lParam, _In_ DWORD dwFlags, _In_ LANGID LangId);*/
