@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using Windows.Phone.System.LockScreenExtensibility;
-using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using System.IO;
 
@@ -21,9 +16,13 @@ namespace LockEx.Extensions
     public partial class SettingsPage : PhoneApplicationPage
     {
 
-        NativeAPI NAPI;
-        Image[] testImages;
-        TextBlock[] testTexts;
+        private const string UICMARPrefix = "res://UIXMobileAssets{ScreenResolution}!";
+        private const string FilePrefix = "file://";
+        private NativeAPI NAPI;
+        private Image[] badgeImages;
+        private Image[] indicatorImages;
+        private TextBlock[] badgeTexts;
+        private TextBlock[] detailedTexts;
 
         public SettingsPage()
         {
@@ -32,12 +31,10 @@ namespace LockEx.Extensions
             var cont = Application.Current.Host.Content;
             NAPI.InitUIXMAResources((int) Math.Ceiling(cont.ActualWidth * cont.ScaleFactor * 0.01), (int) Math.Ceiling(cont.ActualHeight * cont.ScaleFactor * 0.01));
             ToggleMain.IsChecked = ExtensibilityApp.IsLockScreenApplicationRegistered();
-            testImages = new Image[] {
-                TestImage0, TestImage1, TestImage2, TestImage3, TestImage4
-            };
-            testTexts = new TextBlock[] {
-                TestText0, TestText1, TestText2, TestText3, TestText4
-            };
+            badgeImages = new Image[] { TestImage0, TestImage1, TestImage2, TestImage3, TestImage4 };
+            indicatorImages = new Image[] { TestImageA, TestImageB, TestImageC };
+            badgeTexts = new TextBlock[] { TestText0, TestText1, TestText2, TestText3, TestText4 };
+            detailedTexts = new TextBlock[] { TestTextA, TestTextB, TestTextC };
         }
 
         private void ToggleMain_Checked(object sender, RoutedEventArgs e)
@@ -54,26 +51,45 @@ namespace LockEx.Extensions
         {
             NavigationService.RemoveBackEntry();
             Snapshot snap = NAPI.GetNotificationsSnapshot();
-            TestText.Text = snap.DetailedTexts.Select(p => p.DetailedText).Aggregate((a, b) => a + Environment.NewLine + b);
-            for(int i=0; i<snap.BadgeCount && i<testImages.Length; i++)
+            for (int i = 0; i < 3; i++)
             {
-                if(snap.Badges[i].Type != BadgeValueType.None)
+                detailedTexts[i].Text = snap.DetailedTexts[i].DetailedText;
+                detailedTexts[i].FontWeight = (snap.DetailedTexts[i].IsBoldText) ? FontWeights.Bold : FontWeights.Normal;
+            }
+            for (int i = 0; i < snap.BadgeCount && i < badgeImages.Length; i++)
+            {
+                if (snap.Badges[i].Type != BadgeValueType.None)
                 {
                     BitmapImage bitmapImage = new BitmapImage();
-                    string[] glypghUri = snap.Badges[i].IconUri.Split(new string[] { "://" }, StringSplitOptions.None);
-                    if (glypghUri[0] == "res")
+                    if (snap.Badges[i].IconUri.StartsWith(UICMARPrefix))
                     {
-                        string[] resNames = glypghUri[1].Split(new String[] { "!" }, StringSplitOptions.None);
-                        if(resNames[0] == "UIXMobileAssets{ScreenResolution}") bitmapImage.SetSource(new MemoryStream(NAPI.GetUIXMAResource(resNames[1])));
+                        bitmapImage.SetSource(new MemoryStream(NAPI.GetUIXMAResource(snap.Badges[i].IconUri.Substring(UICMARPrefix.Length))));
                     }
-                    else if (glypghUri[0] == "file") bitmapImage.SetSource(new FileStream(glypghUri[1], FileMode.Open));
-                    testImages[i].Source = bitmapImage;
-                    if (snap.Badges[i].Type == BadgeValueType.Count) testTexts[i].Text = snap.Badges[i].Value;
+                    else if (snap.Badges[i].IconUri.StartsWith(FilePrefix))
+                    {
+                        bitmapImage.SetSource(new FileStream(snap.Badges[i].IconUri.Substring(FilePrefix.Length), FileMode.Open));
+                    }
+                    badgeImages[i].Source = bitmapImage;
+                    if (snap.Badges[i].Type == BadgeValueType.Count) badgeTexts[i].Text = snap.Badges[i].Value;
                 }
                 else
                 {
-                    testImages[i].Source = null;
-                    testTexts[i].Text = "";
+                    //testImages[i].Source = null;
+                    //testTexts[i].Text = "";
+                }
+            }
+            string[] iconUris = new string[] { snap.AlarmIconUri, snap.DoNotDisturbIconUri, snap.DrivingModeIconUri };
+            for (int i = 0; i < 3; i++)
+            {
+                if(iconUris[i] != "" && iconUris[i].StartsWith(UICMARPrefix))
+                {
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.SetSource(new MemoryStream(NAPI.GetUIXMAResource(iconUris[i].Substring(UICMARPrefix.Length))));
+                    indicatorImages[i].Source = bitmapImage;
+                }
+                else
+                {
+                    //testImages2[i].Source = null
                 }
             }
             base.OnNavigatedTo(e);
