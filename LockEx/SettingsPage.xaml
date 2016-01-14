@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="LockEx.Extensions.SettingsPage"
+    x:Class="LockEx.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -28,23 +28,23 @@
 
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <toolkit:ToggleSwitch x:Name="ToggleMain" Content="Als Sperrbildschirm" IsChecked="False" Header="Steuerung" Margin="0" VerticalAlignment="Top" Checked="ToggleMain_Checked" Unchecked="ToggleMain_Unchecked" />
-            <TextBlock x:Name="TestTextA" HorizontalAlignment="Left" Margin="10,131,0,0" TextWrapping="NoWrap" Text="Line 1" VerticalAlignment="Top" Height="30" Width="436"/>
-            <TextBlock x:Name="TestTextB" HorizontalAlignment="Left" Margin="10,161,0,0" TextWrapping="NoWrap" Text="Line 2" VerticalAlignment="Top" Height="30" Width="436"/>
-            <TextBlock x:Name="TestTextC" HorizontalAlignment="Left" Margin="10,191,0,0" TextWrapping="NoWrap" Text="Line 3" VerticalAlignment="Top" Height="30" Width="436"/>
-            <Image x:Name="TestImage0" HorizontalAlignment="Left" Height="32" Margin="10,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
-            <Image x:Name="TestImage1" HorizontalAlignment="Left" Height="32" Margin="47,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
-            <Image x:Name="TestImage2" HorizontalAlignment="Left" Height="32" Margin="84,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
-            <Image x:Name="TestImage3" HorizontalAlignment="Left" Height="32" Margin="121,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
-            <Image x:Name="TestImage4" HorizontalAlignment="Left" Height="32" Margin="158,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
-            <TextBlock x:Name="TestText0" HorizontalAlignment="Left" Margin="10,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
-            <TextBlock x:Name="TestText1" HorizontalAlignment="Left" Margin="47,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
-            <TextBlock x:Name="TestText2" HorizontalAlignment="Left" Margin="84,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
-            <TextBlock x:Name="TestText3" HorizontalAlignment="Left" Margin="121,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
-            <TextBlock x:Name="TestText4" HorizontalAlignment="Left" Margin="158,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
+            <TextBlock x:Name="DetailedText0" HorizontalAlignment="Left" Margin="10,131,0,0" TextWrapping="NoWrap" Text="Line 1" VerticalAlignment="Top" Height="30" Width="436"/>
+            <TextBlock x:Name="DetailedText1" HorizontalAlignment="Left" Margin="10,161,0,0" TextWrapping="NoWrap" Text="Line 2" VerticalAlignment="Top" Height="30" Width="436"/>
+            <TextBlock x:Name="DetailedText2" HorizontalAlignment="Left" Margin="10,191,0,0" TextWrapping="NoWrap" Text="Line 3" VerticalAlignment="Top" Height="30" Width="436"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,99,0,0" TextWrapping="Wrap" Text="Vorschau" VerticalAlignment="Top" Foreground="#FF989898"/>
-            <Image x:Name="TestImageA" HorizontalAlignment="Left" Height="32" Margin="340,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
-            <Image x:Name="TestImageB" HorizontalAlignment="Left" Height="32" Margin="377,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
-            <Image x:Name="TestImageC" HorizontalAlignment="Left" Height="32" Margin="414,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
+            <Image x:Name="BadgeImage0" HorizontalAlignment="Left" Height="32" Margin="10,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
+            <Image x:Name="BadgeImage1" HorizontalAlignment="Left" Height="32" Margin="47,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
+            <Image x:Name="BadgeImage2" HorizontalAlignment="Left" Height="32" Margin="84,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
+            <Image x:Name="BadgeImage3" HorizontalAlignment="Left" Height="32" Margin="121,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
+            <Image x:Name="BadgeImage4" HorizontalAlignment="Left" Height="32" Margin="158,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
+            <TextBlock x:Name="BadgeValue0" HorizontalAlignment="Left" Margin="10,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
+            <TextBlock x:Name="BadgeValue1" HorizontalAlignment="Left" Margin="47,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
+            <TextBlock x:Name="BadgeValue2" HorizontalAlignment="Left" Margin="84,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
+            <TextBlock x:Name="BadgeValue3" HorizontalAlignment="Left" Margin="121,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
+            <TextBlock x:Name="BadgeValue4" HorizontalAlignment="Left" Margin="158,258,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" TextAlignment="Center"/>
+            <Image x:Name="IndicatorImage0" HorizontalAlignment="Left" Height="32" Margin="340,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
+            <Image x:Name="IndicatorImage1" HorizontalAlignment="Left" Height="32" Margin="377,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
+            <Image x:Name="IndicatorImage2" HorizontalAlignment="Left" Height="32" Margin="414,226,0,0" VerticalAlignment="Top" Width="32" Source="/Assets/BadgeLogo.png"/>
         </Grid>
     </Grid>
 

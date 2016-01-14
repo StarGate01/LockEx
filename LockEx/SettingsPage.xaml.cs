@@ -10,7 +10,7 @@ using System.IO;
 using RTComponent;
 using RTComponent.NotificationsSnapshot;
 
-namespace LockEx.Extensions
+namespace LockEx
 {
 
     public partial class SettingsPage : PhoneApplicationPage
@@ -30,11 +30,11 @@ namespace LockEx.Extensions
             NAPI = new NativeAPI();
             var cont = Application.Current.Host.Content;
             NAPI.InitUIXMAResources((int) Math.Ceiling(cont.ActualWidth * cont.ScaleFactor * 0.01), (int) Math.Ceiling(cont.ActualHeight * cont.ScaleFactor * 0.01));
+            badgeImages = new Image[] { BadgeImage0, BadgeImage1, BadgeImage2, BadgeImage3, BadgeImage4 };
+            indicatorImages = new Image[] { IndicatorImage0, IndicatorImage1, IndicatorImage2 };
+            badgeTexts = new TextBlock[] { BadgeValue0, BadgeValue1, BadgeValue2, BadgeValue3, BadgeValue4 };
+            detailedTexts = new TextBlock[] { DetailedText0, DetailedText1, DetailedText2 };
             ToggleMain.IsChecked = ExtensibilityApp.IsLockScreenApplicationRegistered();
-            badgeImages = new Image[] { TestImage0, TestImage1, TestImage2, TestImage3, TestImage4 };
-            indicatorImages = new Image[] { TestImageA, TestImageB, TestImageC };
-            badgeTexts = new TextBlock[] { TestText0, TestText1, TestText2, TestText3, TestText4 };
-            detailedTexts = new TextBlock[] { TestTextA, TestTextB, TestTextC };
         }
 
         private void ToggleMain_Checked(object sender, RoutedEventArgs e)
@@ -67,7 +67,14 @@ namespace LockEx.Extensions
                     }
                     else if (snap.Badges[i].IconUri.StartsWith(FilePrefix))
                     {
-                        bitmapImage.SetSource(new FileStream(snap.Badges[i].IconUri.Substring(FilePrefix.Length), FileMode.Open));
+                        MemoryStream ms = new MemoryStream();
+                        using (FileStream fs = new FileStream(snap.Badges[i].IconUri.Substring(FilePrefix.Length), FileMode.Open))
+                        {
+                            byte[] bytes = new byte[fs.Length];
+                            fs.Read(bytes, 0, (int)fs.Length);
+                            ms.Write(bytes, 0, (int)fs.Length);
+                        }
+                        bitmapImage.SetSource(ms);
                     }
                     badgeImages[i].Source = bitmapImage;
                     if (snap.Badges[i].Type == BadgeValueType.Count) badgeTexts[i].Text = snap.Badges[i].Value;
