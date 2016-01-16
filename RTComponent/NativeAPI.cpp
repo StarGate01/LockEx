@@ -78,11 +78,11 @@ Array<uint8>^ NativeAPI::GetUIXMAResource(String^ name)
 		if (resHandle != NULL)
 		{
 			HGLOBAL resLHandle = LoadResource(UIXMobileAssets, resHandle);
-			if (resLHandle == NULL) throw ref new FailureException("LoadResourceW failed");
+			if (resLHandle == NULL) throw ref new FailureException("LoadResource failed");
 			DWORD resSize = SizeofResource(UIXMobileAssets, resHandle);
-			if (resSize == NULL) throw ref new FailureException("SizeofResourceW failed");
+			if (resSize == NULL) throw ref new FailureException("SizeofResource failed");
 			LPVOID resData = LockResource(resLHandle);
-			if (resData == NULL) throw ref new FailureException("LockResourceW failed");
+			if (resData == NULL) throw ref new FailureException("LockResourceWfailed");
 			UINT8 *bytes = new UINT8[resSize];
 			memcpy(bytes, resData, resSize);
 			return ref new Array<uint8>(bytes, resSize);
