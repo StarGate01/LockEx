@@ -6,6 +6,10 @@
 
 **LockEx** is a Windows Phone 8.1 Silverlight App, which uses RTComponent. It is not finished and in early beta. Also it currently uses the ```ID_CAP_SHELL_DEVICE_LOCK_UI_API``` and ```ID_CAP_CHAMBER_PROFILE_CODE_RW``` capabilities, so it will only work on an interop- and capability-unlocked phone.
 
+**To build**, RTComponent must be linked with ```ShellChromeAPI.lib```, which can be extracted from the Phone (```C:\Windows\System32\ShellChromeAPI.dll```) as a DLL, and then compiled into a LIB.
+
+&nbsp;
+
 **Thanks to / Sources**: 
 - https://wp8nativeaccess.codeplex.com/
 - http://vilic.info/blog/archives/1138
