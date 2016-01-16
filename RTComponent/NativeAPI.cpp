@@ -1,9 +1,7 @@
 ﻿#include "pch.h"
-#include "Objbase.h"
-#include "Win32Helper.h"
 #include "NativeAPI.h"
-#include <windows.h>
-#include <sstream>
+#include "kernelbase.h"
+#include "ShellChromeAPI.h"
 
 using namespace std;
 using namespace Platform;
@@ -11,31 +9,13 @@ using namespace Platform;
 using namespace RTComponent;
 using namespace RTComponent::NotificationsSnapshot;
 
-HMODULE KernelBase32, ShellChromeAPI, UIXMobileAssets;
-LoadLibraryEx LoadLibraryExW;
-Shell_TurnScreenOn Shell_TurnScreenOnW;
-Shell_LockScreen_GetNotificationsSnapshot Shell_LockScreen_GetNotificationsSnapshotW;
-FindResourceEx FindResourceExW;
-LoadResource LoadResourceW;
-SizeofResource SizeofResourceW;
-LockResource LockResourceW;
-
 NativeAPI::NativeAPI()
 {
-	TEB* teb = NtCurrentTeb();
-	KernelBase32 = (HMODULE)teb->currentPEB->ldr->initModuleList->Flink->baseAddress;
-	LoadLibraryExW = (LoadLibraryEx)GetProcAddress(KernelBase32, "LoadLibraryExW");
-	ShellChromeAPI = LoadLibraryExW(L"ShellChromeAPI.dll", NULL, 0x00001000);
-	Shell_TurnScreenOnW = (Shell_TurnScreenOn)GetProcAddress(ShellChromeAPI, "Shell_TurnScreenOn");
-	Shell_LockScreen_GetNotificationsSnapshotW = (Shell_LockScreen_GetNotificationsSnapshot)GetProcAddress(ShellChromeAPI, "Shell_LockScreen_GetNotificationsSnapshot");
+
 }
 
 void NativeAPI::InitUIXMAResources(int resWidth, int resHeight)
 {
-	FindResourceExW = (FindResourceEx)GetProcAddress(KernelBase32, "FindResourceExW");
-	LoadResourceW = (LoadResource)GetProcAddress(KernelBase32, "LoadResource");
-	SizeofResourceW = (SizeofResource)GetProcAddress(KernelBase32, "SizeofResource");
-	LockResourceW = (LockResource)GetProcAddress(KernelBase32, "LockResource");
 	wstringstream sstm;
 	sstm << L"UIXMobileAssets" << resWidth << L"x" << resHeight << L".dll";
 	UIXMobileAssets = LoadLibraryExW(sstm.str().c_str(), NULL, 0x00001000);
@@ -44,14 +24,19 @@ void NativeAPI::InitUIXMAResources(int resWidth, int resHeight)
 
 void NativeAPI::TurnScreenOn(Boolean state)
 {
-	Shell_TurnScreenOnW(state);
+	Shell_TurnScreenOn(state);
+}
+
+void NativeAPI::TestReminders()
+{
+
 }
 
 Snapshot^ NativeAPI::GetNotificationsSnapshot()
 {
 	DEVICE_LOCK_SCREEN_SNAPSHOT* pSnapshot = new DEVICE_LOCK_SCREEN_SNAPSHOT();
 	pSnapshot->size = sizeof(DEVICE_LOCK_SCREEN_SNAPSHOT);
-	HRESULT shellRes = Shell_LockScreen_GetNotificationsSnapshotW(pSnapshot);
+	HRESULT shellRes = Shell_LockScreen_GetNotificationsSnapshot(pSnapshot);
 	if (shellRes == S_OK)
 	{
 		Snapshot^ mSnap = ref new NotificationsSnapshot::Snapshot();
@@ -92,11 +77,11 @@ Array<uint8>^ NativeAPI::GetUIXMAResource(String^ name)
 		HRSRC resHandle = FindResourceExW(UIXMobileAssets, RT_RCDATA, name->Data(), MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US));
 		if (resHandle != NULL)
 		{
-			HGLOBAL resLHandle = LoadResourceW(UIXMobileAssets, resHandle);
+			HGLOBAL resLHandle = LoadResource(UIXMobileAssets, resHandle);
 			if (resLHandle == NULL) throw ref new FailureException("LoadResourceW failed");
-			DWORD resSize = SizeofResourceW(UIXMobileAssets, resHandle);
+			DWORD resSize = SizeofResource(UIXMobileAssets, resHandle);
 			if (resSize == NULL) throw ref new FailureException("SizeofResourceW failed");
-			LPVOID resData = LockResourceW(resLHandle);
+			LPVOID resData = LockResource(resLHandle);
 			if (resData == NULL) throw ref new FailureException("LockResourceW failed");
 			UINT8 *bytes = new UINT8[resSize];
 			memcpy(bytes, resData, resSize);

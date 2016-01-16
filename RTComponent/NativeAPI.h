@@ -1,8 +1,5 @@
 ﻿#pragma once
 
-#include <collection.h>
-#include "ShellLockScreenAPITypes.h"
-
 using namespace Platform;
 using namespace Platform::Collections;
 using namespace Windows::Foundation::Collections;
@@ -51,9 +48,12 @@ namespace RTComponent
     public ref class NativeAPI sealed
     {
 
-    public:
+	private:
+		HMODULE UIXMobileAssets;
 
+    public:
 		NativeAPI();
+		void TestReminders();
 		void InitUIXMAResources(int resWidth, int resHeight);
 		void TurnScreenOn(bool state);
 		NotificationsSnapshot::Snapshot^ GetNotificationsSnapshot();

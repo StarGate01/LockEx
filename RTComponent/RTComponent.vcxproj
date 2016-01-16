@@ -115,6 +115,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>C:\Users\Christoph\Documents\wp8 unlock files\lnkpath;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ShellChromeAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -132,10 +134,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="kernelbase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="NativeAPI.h" />
+    <ClInclude Include="ShellChromeAPI.h" />
+    <ClInclude Include="ShellLockScreenAPI.h" />
     <ClInclude Include="ShellLockScreenAPITypes.h" />
-    <ClInclude Include="Win32Helper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

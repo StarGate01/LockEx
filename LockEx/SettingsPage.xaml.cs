@@ -16,7 +16,7 @@ namespace LockEx
     public partial class SettingsPage : PhoneApplicationPage
     {
 
-        private const string UICMARPrefix = "res://UIXMobileAssets{ScreenResolution}!";
+        private const string UIXMARPrefix = "res://UIXMobileAssets{ScreenResolution}!";
         private const string FilePrefix = "file://";
         private NativeAPI NAPI;
         private Image[] badgeImages;
@@ -61,9 +61,9 @@ namespace LockEx
                 if (snap.Badges[i].Type != BadgeValueType.None)
                 {
                     BitmapImage bitmapImage = new BitmapImage();
-                    if (snap.Badges[i].IconUri.StartsWith(UICMARPrefix))
+                    if (snap.Badges[i].IconUri.StartsWith(UIXMARPrefix))
                     {
-                        bitmapImage.SetSource(new MemoryStream(NAPI.GetUIXMAResource(snap.Badges[i].IconUri.Substring(UICMARPrefix.Length))));
+                        bitmapImage.SetSource(new MemoryStream(NAPI.GetUIXMAResource(snap.Badges[i].IconUri.Substring(UIXMARPrefix.Length))));
                     }
                     else if (snap.Badges[i].IconUri.StartsWith(FilePrefix))
                     {
@@ -88,10 +88,10 @@ namespace LockEx
             string[] iconUris = new string[] { snap.AlarmIconUri, snap.DoNotDisturbIconUri, snap.DrivingModeIconUri };
             for (int i = 0; i < 3; i++)
             {
-                if(iconUris[i] != "" && iconUris[i].StartsWith(UICMARPrefix))
+                if(iconUris[i] != "" && iconUris[i].StartsWith(UIXMARPrefix))
                 {
                     BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.SetSource(new MemoryStream(NAPI.GetUIXMAResource(iconUris[i].Substring(UICMARPrefix.Length))));
+                    bitmapImage.SetSource(new MemoryStream(NAPI.GetUIXMAResource(iconUris[i].Substring(UIXMARPrefix.Length))));
                     indicatorImages[i].Source = bitmapImage;
                 }
                 else
@@ -100,6 +100,11 @@ namespace LockEx
                 }
             }
             base.OnNavigatedTo(e);
+        }
+
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            NAPI.TestReminders();
         }
 
     }

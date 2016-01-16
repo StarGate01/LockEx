@@ -13,7 +13,9 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="NativeAPI.h" />
+    <ClInclude Include="ShellLockScreenAPI.h" />
     <ClInclude Include="ShellLockScreenAPITypes.h" />
-    <ClInclude Include="Win32Helper.h" />
+    <ClInclude Include="ShellChromeAPI.h" />
+    <ClInclude Include="kernelbase.h" />
   </ItemGroup>
 </Project>
