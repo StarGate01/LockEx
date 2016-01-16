@@ -1,11 +1,13 @@
 ﻿#include "pch.h"
 #include "NativeAPI.h"
-#include "kernelbase.h"
-#include "ShellChromeAPI.h"
+extern "C"
+{
+	#include "kernelbase.h"
+	#include "ShellChromeAPI.h"
+}
 
 using namespace std;
 using namespace Platform;
-
 using namespace RTComponent;
 using namespace RTComponent::NotificationsSnapshot;
 
