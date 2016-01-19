@@ -29,11 +29,6 @@ void NativeAPI::TurnScreenOn(Boolean state)
 	Shell_TurnScreenOn(state);
 }
 
-void NativeAPI::TestReminders()
-{
-
-}
-
 Snapshot^ NativeAPI::GetNotificationsSnapshot()
 {
 	DEVICE_LOCK_SCREEN_SNAPSHOT* pSnapshot = new DEVICE_LOCK_SCREEN_SNAPSHOT();

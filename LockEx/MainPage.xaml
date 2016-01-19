@@ -21,9 +21,6 @@
 
         <Grid x:Name="ContentPanel" Grid.Row="0" Margin="0,0,0,0">
             <Button x:Name="ButtonUnlock" Content="Entsperren" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ButtonUnlock_Click" />
-            <TextBlock x:Name="FirstLine" HorizontalAlignment="Left" Margin="10,699,0,0" Text="First line" VerticalAlignment="Top"/>
-            <TextBlock x:Name="SecondLine" HorizontalAlignment="Left" Margin="10,731,0,0" Text="Second line" VerticalAlignment="Top"/>
-            <TextBlock x:Name="ThirdLine" HorizontalAlignment="Left" Margin="10,763,0,0" Text="Third line" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 

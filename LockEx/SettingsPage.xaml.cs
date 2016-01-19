@@ -102,11 +102,6 @@ namespace LockEx
             base.OnNavigatedTo(e);
         }
 
-        private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
-            NAPI.TestReminders();
-        }
-
     }
 
 }
