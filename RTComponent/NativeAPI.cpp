@@ -31,7 +31,19 @@ void NativeAPI::TurnScreenOn(Boolean state)
 
 void NativeAPI::TestReminders()
 {
-
+	/*INT r0 = 0;
+	Shell_InitReminders(&r0);
+	INT p0 = 0, p1 = 0, p2 = 0, p3 = 0;
+	HRESULT ret = Shell_FindFirstReminder(&p0, &p1, &p2, &p3);
+	DWORD res = GetLastError();
+	Shell_DeInitReminders(&r0);*/
+	/*OutputDebugString(L"BNSIGetNotificationCount\r\n");
+	INT cnt = 0;
+	INT ret = BNSIGetNotificationCount(&cnt);
+	OutputDebugString(to_wstring(ret).c_str());
+	OutputDebugString(L"\r\n");
+	OutputDebugString(to_wstring(cnt).c_str());
+	OutputDebugString(L"\r\n");*/
 }
 
 Snapshot^ NativeAPI::GetNotificationsSnapshot()

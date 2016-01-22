@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("LockEx")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Christoph Honal")]
 [assembly: AssemblyProduct("LockEx")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © Christoph Honal 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

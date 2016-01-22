@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="LockEx.Controls.DateTimeControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="140" d:DesignWidth="420"
+    xmlns:model="clr-namespace:LockEx.Models.Main">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent" 
+        d:DataContext="{d:DesignInstance Type=model:MainView, IsDesignTimeCreatable=True}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="110" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DateTimeView.HoursMinutes}" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="110" />
+        <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="40" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding  DateTimeView.AMPM}" VerticalAlignment="Center" FontFamily="Segoe WP SemiLight" FontSize="40" Opacity="0.75" Visibility="{Binding  DateTimeView.AMPMVisible}" Margin="5,7,0,50" Grid.RowSpan="2" />
+        <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="50" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding  DateTimeView.Seconds}" VerticalAlignment="Bottom" FontFamily="Segoe WP SemiLight" FontSize="50" Opacity="0.75" Visibility="{Binding  DateTimeView.SecondsVisible}" Margin="5,0,0,0"/>
+        <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="30" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Opacity="0.75" Margin="0,5,0,0">
+    		<Run Text="{Binding DateTimeView.DayOfWeek}" /><Run Text="{Binding DateTimeView.Date}" FontFamily="Segoe WP Light" />
+        </TextBlock>
+    </Grid>
+</UserControl>

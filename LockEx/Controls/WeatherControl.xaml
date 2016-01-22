@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="LockEx.Controls.WeatherControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="245" d:DesignWidth="280"
+    xmlns:model="clr-namespace:LockEx.Models.Main">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent" 
+        d:DataContext="{d:DesignInstance Type=model:MainView, IsDesignTimeCreatable=True}">
+        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="20"  TextAlignment="Right" Height="32" Opacity="0.9" Padding="3" Margin="0,0,5,0">
+            <Run Text="{Binding Path=LocalizedResources.WeatherIn, Source={StaticResource LocalizedStrings}}" /><Run Text="{Binding WeatherView.City}" />
+        </TextBlock>
+        <ScrollViewer Margin="0,32,0,0" Visibility="{Binding WeatherView.UIVisible}">
+            <ItemsControl ItemsSource="{Binding WeatherView.Entries}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Height="64" Margin="0,2" Width="280" x:Name="stackPanel">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="64" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="2" Grid.RowSpan="3" HorizontalAlignment="Right" Height="64" VerticalAlignment="Top" Width="64" Source="{Binding ImageUri}" Stretch="Fill" RenderTransformOrigin="0.484,0.203" Opacity="0.75"/>
+                                <TextBlock LineStackingStrategy="BlockLineHeight"  LineHeight="18" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Text="{Binding DateAndWeatherText}" VerticalAlignment="Top" FontFamily="Segoe WP Semibold" FontSize="18"  TextAlignment="Right" Opacity="0.9" Padding="3" />
+                                <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="16" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Info}" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="16" TextAlignment="Right" Opacity="0.75" Padding="3" />
+                                <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="16" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Text="{Binding TemperatureText}" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="16" TextAlignment="Right" Opacity="0.75" Padding="3" />
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <ProgressBar Height="10" Margin="0,32,0,0" VerticalAlignment="Top" Visibility="{Binding WeatherView.ErrorVisible}" IsIndeterminate="True"/>
+        <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="16"  Visibility="{Binding WeatherView.ErrorVisible}" HorizontalAlignment="Right" Text="{Binding Path=LocalizedResources.LoadingData, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="16" TextAlignment="Right" Opacity="0.75" Padding="3" Margin="0,42,9,0" />
+    </Grid>
+</UserControl>

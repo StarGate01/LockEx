@@ -6,6 +6,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using LockEx.Resources;
+using LockEx.Models.Main;
 
 namespace LockEx
 {
@@ -14,6 +15,7 @@ namespace LockEx
     {
 
         public static PhoneApplicationFrame RootFrame { get; private set; }
+        public static MainView MainViewModel { get; private set; }
 
         public App()
         {
@@ -21,6 +23,10 @@ namespace LockEx
             InitializeComponent();
             InitializePhoneApplication();
             InitializeLanguage();
+            MainViewModel = new MainView();
+            RootFrame.DataContext = MainViewModel;
+            MainViewModel.PopulateData();
+            MainViewModel.PopulateShellChromeData();
             if (Debugger.IsAttached)
             {
                 //Application.Current.Host.Settings.EnableFrameRateCounter = true;

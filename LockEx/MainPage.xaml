@@ -11,19 +11,43 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="False"
+    xmlns:usercontrols="clr-namespace:LockEx.Controls"
+    xmlns:model="clr-namespace:LockEx.Models.Main">
 
-    <Grid x:Name="LayoutRoot" Background="Black" CacheMode="BitmapCache">
-
+    <Grid x:Name="LayoutRoot" Background="Black" CacheMode="BitmapCache"
+        d:DataContext="{d:DesignInstance Type=model:MainView, IsDesignTimeCreatable=True}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <Grid x:Name="ContentPanel" Grid.Row="0" Margin="0,0,0,0">
-            <Button x:Name="ButtonUnlock" Content="Entsperren" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ButtonUnlock_Click" />
-            <TextBlock x:Name="FirstLine" HorizontalAlignment="Left" Margin="10,699,0,0" Text="First line" VerticalAlignment="Top"/>
-            <TextBlock x:Name="SecondLine" HorizontalAlignment="Left" Margin="10,731,0,0" Text="Second line" VerticalAlignment="Top"/>
-            <TextBlock x:Name="ThirdLine" HorizontalAlignment="Left" Margin="10,763,0,0" Text="Third line" VerticalAlignment="Top"/>
+        <Grid x:Name="ContentPanel" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="240" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="7" Stretch="UniformToFill">
+                <Image.Source>
+                    <BitmapImage UriSource="{Binding ImageUri}" ></BitmapImage>
+                </Image.Source>
+            </Image>
+            <usercontrols:DateTimeControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top" DataContext="{Binding}" Height="140" Margin="30,30,30,0" />
+            <Border Background="Transparent" Margin="30, 0, 0, 0" Grid.Column="0" Grid.Row="2" Width="125" BorderBrush="#AAFFFFFF" BorderThickness="0, 0, 1, 0" >
+                <usercontrols:BagesControl DataContext="{Binding}" Height="240" BorderBrush="Black" />
+            </Border>
+            <usercontrols:WeatherControl Margin="0,0,30,0" Grid.Column="1" Grid.Row="2" Width="295" DataContext="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="{Binding RightPanelRowSpan}"/>
+            <usercontrols:DetailedTextControl Margin="30,0" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" DataContext="{Binding}" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" />
+            <Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" x:Name="ButtonUnlock" Content="{Binding Path=LocalizedResources.Unlock, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" Click="ButtonUnlock_Click" BorderBrush="Transparent" Foreground="#FF9DA4CD" FontSize="30" FontFamily="Segoe WP SemiLight" />
         </Grid>
     </Grid>
 
