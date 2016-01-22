@@ -8,7 +8,7 @@
 
 **To build**, RTComponent must be linked with ```ShellChromeAPI.lib```, which can be extracted from the Phone (```C:\Windows\System32\ShellChromeAPI.dll```) as a DLL, and then compiled into a LIB.
 
-&nbsp;
+**[Downloads](https://github.com/StarGate01/LockEx/releases) (Releases)**
 
 **Thanks to / Sources**: 
 - https://wp8nativeaccess.codeplex.com/

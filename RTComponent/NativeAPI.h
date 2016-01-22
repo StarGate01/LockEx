@@ -53,7 +53,6 @@ namespace RTComponent
 
     public:
 		NativeAPI();
-		void TestReminders();
 		void InitUIXMAResources(int resWidth, int resHeight);
 		void TurnScreenOn(bool state);
 		NotificationsSnapshot::Snapshot^ GetNotificationsSnapshot();
