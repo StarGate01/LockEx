@@ -3,6 +3,7 @@ using LockEx.Models.WeatherControl;
 using LockEx.Models.BadgesControl;
 using LockEx.Models.DateTimeControl;
 using LockEx.Models.DetailedTextControl;
+using LockEx.Models.MusicControl;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
@@ -11,6 +12,10 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using Windows.Phone.System.LockScreenExtensibility;
 using LockEx.Resources;
+using Windows.Phone.System.UserProfile;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 
 using RTComponent;
 using RTComponent.NotificationsSnapshot;
@@ -73,6 +78,19 @@ namespace LockEx.Models.Main
                 RaisePropertyChanged("DetailedTextView");
             }
         }
+        private MusicControlView _musicView;
+        public MusicControlView MusicView
+        {
+            get
+            {
+                return _musicView;
+            }
+            set
+            {
+                _musicView = value;
+                RaisePropertyChanged("MusicView");
+            }
+        }
         private Uri _imageUri;
         public Uri ImageUri
         {
@@ -109,6 +127,36 @@ namespace LockEx.Models.Main
                 }
             }
         }
+        private bool _isBackground;
+        public bool IsBackground
+        {
+            get
+            {
+                if (DesignerProperties.IsInDesignTool) return _isBackground;
+                return LockScreenManager.IsProvidedByCurrentApplication;
+            }
+            set
+            {
+                if (DesignerProperties.IsInDesignTool) _isBackground = value;
+                else if(value) new Task(async () =>
+                {
+                    try
+                    {
+                        LockScreenRequestResult res = await LockScreenManager.RequestAccessAsync();
+                        if (res == LockScreenRequestResult.Granted)
+                        {
+                            Uri fileUri = new Uri("ms-appx:///" + ImageUri, UriKind.Absolute);
+                            LockScreen.SetImageUri(fileUri);
+                            Deployment.Current.Dispatcher.BeginInvoke(() =>
+                            {
+                                RaisePropertyChanged("IsBackground");
+                            });
+                        }
+                    }
+                    catch { }
+                }).Start();
+            }
+        }
         private bool _longTextMode;
         public bool LongTextMode
         {
@@ -138,12 +186,61 @@ namespace LockEx.Models.Main
                 return LongTextMode ? 3 : 1;
             }
         }
+        public Visibility LowerPanelVisibility
+        {
+            get
+            {
+                return (!LongTextMode && MusicView.HasMusic) ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        private double _globalYOffset;
+        public double GlobalYOffset
+        {
+            get
+            {
+                return _globalYOffset;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    if (HasPasscode && -value > SwipeMax)
+                    {
+                        _globalYOffset = -SwipeMax;
+                    }
+                    else
+                    {
+                        _globalYOffset = value;
+                    }
+                    RaisePropertyChanged("GlobalYOffset");
+                }
+            }
+        }
+        private double swipeMaxDefault = 400;
+        public double SwipeMax
+        {
+            get
+            {
+                var cont = Application.Current.Host.Content;
+                double height = ExtensibilityApp.GetLockPinpadHeight() / (Application.Current.Host.Content.ScaleFactor / 100.0);
+                if (height == 0) return swipeMaxDefault;
+                return height;
+            }
+        }
+        public bool HasPasscode
+        {
+            get
+            {
+                return ExtensibilityApp.GetLockPinpadHeight() != 0;
+            }
+        }
 
         private Uri defaultImageUri = new Uri("/Assets/Backgrounds/blue_mountains_lq.jpg", UriKind.Relative);
 
-        private NativeAPI NAPI;
+        public NativeAPI NAPI;
         private const string UIXMARPrefix = "res://UIXMobileAssets{ScreenResolution}!";
         private const string FilePrefix = "file://";
+        private Snapshot lastSnapshot = null;
 
         public MainView()
         {
@@ -151,6 +248,7 @@ namespace LockEx.Models.Main
             _badgesView = new BadgesControlView();
             _dateTimeView = new DateTimeControlView();
             _detailedTextView = new DetailedTextControlView();
+            _musicView = new MusicControlView();
             if(!DesignerProperties.IsInDesignTool)
             { 
                 NAPI = new NativeAPI();
@@ -161,6 +259,45 @@ namespace LockEx.Models.Main
             {
                 PopulateDesignerData();
             }
+            MusicView.PropertyChanged += (object sender, PropertyChangedEventArgs e) => { if (e.PropertyName == "HasMusic") RaisePropertyChanged("LowerPanelVisibility"); };
+        }
+
+        public void PopulateDesignerData()
+        {
+            _imageUri = defaultImageUri;
+            _isLockscreen = true;
+            _isBackground = true;
+            _longTextMode = false;
+            _globalYOffset = 0;
+            WeatherView.Entries = new ObservableCollection<WeatherControlEntry>()
+            {
+                new WeatherControlEntry(DateTime.Today, WeatherControlEntry.WeatherStates.Clear, "Lorem ipsum", 20.4, 30.6),
+                new WeatherControlEntry(DateTime.Today.AddDays(1), WeatherControlEntry.WeatherStates.FewClouds, "Sit dolor amet", -10.4, 3),
+                new WeatherControlEntry(DateTime.Today.AddDays(2), WeatherControlEntry.WeatherStates.Rain, "Consecutivis nam", -10.4, 3),
+                new WeatherControlEntry(DateTime.Today.AddDays(3), WeatherControlEntry.WeatherStates.Snow, "Labor hams", -20, 23.5),
+                new WeatherControlEntry(DateTime.Today.AddDays(7), WeatherControlEntry.WeatherStates.Thunderstorm, "Mongolis plebeiis", 3, 11),
+                new WeatherControlEntry(DateTime.Today.AddDays(14), WeatherControlEntry.WeatherStates.BrokenClouds, "Ay Macarena", 14, 18.7)
+            };
+            WeatherControlView.City = "München";
+            WeatherControlView.TempSuffix = WeatherControlView.TempSuffixes.Celsius;
+            WeatherView.ErrorVisible = Visibility.Collapsed;
+            ObservableCollection<BadgesControlEntry> badgesEntries = new ObservableCollection<BadgesControlEntry>();
+            BitmapImage placeholder = new BitmapImage(new Uri("/Assets/ApplicationIcon.png", UriKind.Relative));
+            for (int i = 0; i < 5; i++) badgesEntries.Add(new BadgesControlEntry(placeholder, "0"));
+            BadgesView.Entries = badgesEntries;
+            DateTimeView.Value = DateTime.Now;
+            DateTimeControlView.HourFormat = "24";
+            DateTimeControlView.SecondsVisible = Visibility.Visible;
+            DetailedTextView.Entries = new ObservableCollection<DetailedTextControlEntry>()
+            {
+                new DetailedTextControlEntry("Lockscreen fertig programmieren, und diese Zeile ist auch sehr lang", true),
+                new DetailedTextControlEntry("Zuhause, am Rechner", false),
+                new DetailedTextControlEntry("Morgen: 12:00 - 15:00 Uhr", false)
+            };
+            MusicView.Song = "Are We The Waiting";
+            MusicView.Artist = "Green Day";
+            MusicView.PlayState = Microsoft.Xna.Framework.Media.MediaState.Playing;
+            MusicView.Position = 60.5;
         }
 
         public void PopulateData()
@@ -173,6 +310,8 @@ namespace LockEx.Models.Main
         public void PopulateShellChromeData()
         {
             Snapshot snap = NAPI.GetNotificationsSnapshot();
+            if (SnapshotsEqual(snap, lastSnapshot)) return;
+            lastSnapshot = snap;
             ObservableCollection<DetailedTextControlEntry> newTextControlEntries = new ObservableCollection<DetailedTextControlEntry>();
             for (int i = 0; i < 3; i++)
             {
@@ -223,36 +362,27 @@ namespace LockEx.Models.Main
             }*/
         }
 
-        public void PopulateDesignerData()
+        private static bool SnapshotsEqual(Snapshot snapA, Snapshot snapB)
         {
-            _imageUri = defaultImageUri;
-            _isLockscreen = true;
-            _longTextMode = false;
-            WeatherView.Entries = new ObservableCollection<WeatherControlEntry>()
+            if (snapA == null || snapB == null) return false;
+            if (snapA.AlarmIconUri != snapB.AlarmIconUri) return false;
+            if (snapA.BadgeCount != snapB.BadgeCount) return false;
+            if (snapA.DetailedTextCount != snapB.DetailedTextCount) return false;
+            if (snapA.DoNotDisturbIconUri != snapB.DoNotDisturbIconUri) return false;
+            if (snapA.DrivingModeIconUri != snapB.DrivingModeIconUri) return false;
+            if (snapA.Size != snapB.Size) return false;
+            for(int i=0; i<snapA.Badges.Count; i++)
             {
-                new WeatherControlEntry(DateTime.Today, WeatherControlEntry.WeatherStates.Clear, "Lorem ipsum", 20.4, 30.6),
-                new WeatherControlEntry(DateTime.Today.AddDays(1), WeatherControlEntry.WeatherStates.FewClouds, "Sit dolor amet", -10.4, 3),
-                new WeatherControlEntry(DateTime.Today.AddDays(2), WeatherControlEntry.WeatherStates.Rain, "Consecutivis nam", -10.4, 3),
-                new WeatherControlEntry(DateTime.Today.AddDays(3), WeatherControlEntry.WeatherStates.Snow, "Labor hams", -20, 23.5),
-                new WeatherControlEntry(DateTime.Today.AddDays(7), WeatherControlEntry.WeatherStates.Thunderstorm, "Mongolis plebeiis", 3, 11),
-                new WeatherControlEntry(DateTime.Today.AddDays(14), WeatherControlEntry.WeatherStates.BrokenClouds, "Ay Macarena", 14, 18.7)
-            };
-            WeatherControlView.City = "München";
-            WeatherControlView.TempSuffix = WeatherControlView.TempSuffixes.Celsius;
-            WeatherView.ErrorVisible = Visibility.Collapsed;
-            ObservableCollection<BadgesControlEntry> badgesEntries = new ObservableCollection<BadgesControlEntry>();
-            BitmapImage placeholder = new BitmapImage(new Uri("/Assets/ApplicationIcon.png", UriKind.Relative));
-            for (int i = 0; i < 5; i++) badgesEntries.Add(new BadgesControlEntry(placeholder, "0"));
-            BadgesView.Entries = badgesEntries;
-            DateTimeView.Value = DateTime.Now;
-            DateTimeControlView.HourFormat = "24";
-            DateTimeControlView.SecondsVisible = Visibility.Visible;
-            DetailedTextView.Entries = new ObservableCollection<DetailedTextControlEntry>()
+                if (snapA.Badges[i].IconUri != snapB.Badges[i].IconUri) return false;
+                if (snapA.Badges[i].Type != snapB.Badges[i].Type) return false;
+                if (snapA.Badges[i].Value != snapB.Badges[i].Value) return false;
+            }
+            for (int i = 0; i < snapA.DetailedTexts.Count; i++)
             {
-                new DetailedTextControlEntry("Lockscreen fertig programmieren, und diese Zeile ist auch sehr lang", true),
-                new DetailedTextControlEntry("Zuhause, am Rechner", false),
-                new DetailedTextControlEntry("Morgen: 12:00 - 15:00 Uhr", false)
-            };
+                if (snapA.DetailedTexts[i].DetailedText != snapB.DetailedTexts[i].DetailedText) return false;
+                if (snapA.DetailedTexts[i].IsBoldText != snapB.DetailedTexts[i].IsBoldText) return false;
+            }
+            return true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

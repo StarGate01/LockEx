@@ -26,6 +26,7 @@
     <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <DefaultLanguage>de-DE</DefaultLanguage>
+    <ExpressionBlendVersion>12.0.60617.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -103,10 +104,14 @@
     <Compile Include="Controls\DetailedTextControl.xaml.cs">
       <DependentUpon>DetailedTextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MusicControl.xaml.cs">
+      <DependentUpon>MusicControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\BadgesControlModels.cs" />
     <Compile Include="Models\DateTimeControlModels.cs" />
     <Compile Include="Models\DetailedTextControlModels.cs" />
     <Compile Include="Models\MainModels.cs" />
+    <Compile Include="Models\MusicControlModels.cs" />
     <Compile Include="Models\WeatherControlModels.cs" />
     <Compile Include="OWMClient.cs" />
     <Compile Include="SettingsPage.xaml.cs">
@@ -132,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Content Include="Assets\Backgrounds\blue_mountains_lq.jpg" />
+    <Content Include="Assets\Icons\appbar.control.fastforward.png" />
+    <Content Include="Assets\Icons\appbar.control.pause.png" />
+    <Content Include="Assets\Icons\appbar.control.play.png" />
+    <Content Include="Assets\Icons\appbar.control.rewind.png" />
     <Content Include="Assets\Weather\clear.png" />
     <Content Include="Assets\Weather\cloud1.png" />
     <Content Include="Assets\Weather\cloud2.png" />
@@ -144,11 +153,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Content>
-    <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
     <Page Include="Controls\BagesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\DetailedTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MusicControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,6 +231,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
       <Private>True</Private>
@@ -239,6 +248,7 @@
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\sl4-windowsphone71\System.Net.Http.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Interactivity" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RTComponent\RTComponent.vcxproj">
@@ -246,7 +256,6 @@
       <Name>RTComponent</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

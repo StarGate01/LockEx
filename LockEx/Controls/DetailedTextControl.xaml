@@ -7,7 +7,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="125" d:DesignWidth="480"
+    d:DesignHeight="135" d:DesignWidth="480"
     xmlns:model="clr-namespace:LockEx.Models.Main">
 
     <Grid x:Name="LayoutRoot" Background="Transparent" 
@@ -16,7 +16,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock FontWeight="{Binding FontWeight}" FontFamily="Segoe WP SemiLight" FontSize="22" Text="{Binding Text}" TextWrapping="Wrap" />
+                        <TextBlock FontWeight="{Binding FontWeight}" FontFamily="Segoe WP SemiLight" FontSize="24" Text="{Binding Text}" TextWrapping="Wrap" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

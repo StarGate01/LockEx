@@ -259,6 +259,15 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Als Hintergrund ähnelt.
+        /// </summary>
+        public static string SettingsBackground {
+            get {
+                return ResourceManager.GetString("SettingsBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Temperatur anzeigen in ähnelt.
         /// </summary>
         public static string SettingTempSuffix {
@@ -291,6 +300,15 @@ namespace LockEx.Resources {
         public static string Snow {
             get {
                 return ResourceManager.GetString("Snow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  von  ähnelt.
+        /// </summary>
+        public static string SongBy {
+            get {
+                return ResourceManager.GetString("SongBy", resourceCulture);
             }
         }
         

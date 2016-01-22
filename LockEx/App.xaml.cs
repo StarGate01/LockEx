@@ -26,7 +26,6 @@ namespace LockEx
             MainViewModel = new MainView();
             RootFrame.DataContext = MainViewModel;
             MainViewModel.PopulateData();
-            MainViewModel.PopulateShellChromeData();
             if (Debugger.IsAttached)
             {
                 //Application.Current.Host.Settings.EnableFrameRateCounter = true;

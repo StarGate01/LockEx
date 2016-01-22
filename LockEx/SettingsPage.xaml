@@ -33,16 +33,17 @@
         </StackPanel>
 
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ScrollViewer Margin="0,0,0,10" VerticalScrollBarVisibility="Visible">
-                <Grid Height="825">
+            <ScrollViewer Margin="0,0,0,0" VerticalScrollBarVisibility="Visible">
+                <Grid Height="700">
                     <toolkit:ToggleSwitch IsChecked="{Binding IsLockscreen, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingLockscreen, Source={StaticResource LocalizedStrings}}" Margin="0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding LongTextMode, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingLongTextMode, Source={StaticResource LocalizedStrings}}" Margin="0,103,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.HourFormatIs12, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingHourFormat, Source={StaticResource LocalizedStrings}}" Margin="0,206,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.SecondsVisibleBool, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingDisplaySeconds, Source={StaticResource LocalizedStrings}}" Margin="0,309,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <TextBlock HorizontalAlignment="Left" Margin="10,433,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.SettingCity, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
-                    <TextBox HorizontalAlignment="Left" Height="72" Margin="0,476,0,0" TextWrapping="Wrap" Text="{Binding WeatherView.City, Mode=TwoWay}" VerticalAlignment="Top" Width="456"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,582,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingTempSuffix, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
-                    <toolkit:ListPicker ItemsSource="{Binding WeatherView.TempSuffixesStrings, Mode=TwoWay}" SelectedIndex="{Binding WeatherView.TempSuffix, Converter={StaticResource enumIntConverter}, Mode=TwoWay}" Margin="10,625,10,-149" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding IsBackground, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingsBackground, Source={StaticResource LocalizedStrings}}" Margin="0,60,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding LongTextMode, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingLongTextMode, Source={StaticResource LocalizedStrings}}" Margin="0,120,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.HourFormatIs12, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingHourFormat, Source={StaticResource LocalizedStrings}}" Margin="0,180,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.SecondsVisibleBool, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingDisplaySeconds, Source={StaticResource LocalizedStrings}}" Margin="0,240,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <TextBlock Margin="10,330,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.SettingCity, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
+                    <TextBox HorizontalAlignment="Left" Height="72" Margin="0,373,0,0" TextWrapping="Wrap" Text="{Binding WeatherView.City, Mode=TwoWay}" VerticalAlignment="Top" Width="456"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,465,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingTempSuffix, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
+                    <toolkit:ListPicker ItemsSource="{Binding WeatherView.TempSuffixesStrings, Mode=TwoWay}" SelectedIndex="{Binding WeatherView.TempSuffix, Converter={StaticResource enumIntConverter}, Mode=TwoWay}" Margin="10,508,10,-32" />
                 </Grid>
             </ScrollViewer>
         </Grid>

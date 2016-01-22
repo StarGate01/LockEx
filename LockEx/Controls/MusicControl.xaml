@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="LockEx.Controls.MusicControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="129" d:DesignWidth="420"
+    xmlns:model="clr-namespace:LockEx.Models.Main">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent"
+        d:DataContext="{d:DesignInstance Type=model:MainView, IsDesignTimeCreatable=True}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Hidden">
+            <TextBlock Canvas.Left="0" LineHeight="30" x:Name="TextBlockDesc" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" FontFamily="Segoe WP SemiLight" FontSize="30" TextAlignment="Center" Height="36" Opacity="0.9" Padding="3" TextWrapping="NoWrap" LineStackingStrategy="BlockLineHeight">
+                <Run Text="{Binding MusicView.Song}" FontWeight="Bold" /><Run Text="{Binding Path=LocalizedResources.SongBy, Source={StaticResource LocalizedStrings}}" FontFamily="Segoe WP Light" /><Run Text="{Binding MusicView.Artist}" FontWeight="Bold" />
+            </TextBlock>
+        </ScrollViewer>
+        <ProgressBar Margin="0,3,0,5" Padding="0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Value="{Binding MusicView.Position}" Foreground="#BBFFFFFF" />
+        <Button x:Name="ButtonBack" Click="ButtonBack_Click" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Height="90" Width="90" Style="{StaticResource RoundButtonStyle}">
+            <Button.Background>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Icons/appbar.control.rewind.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="ButtonMain" Click="ButtonMain_Click"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Style="{StaticResource RoundButtonStyle}">
+            <Image>
+                <Image.Source>
+                    <BitmapImage UriSource="{Binding MusicView.MainButtonImageUri}" ></BitmapImage>
+                </Image.Source>
+            </Image>
+        </Button>
+        <Button x:Name="ButtonNext" Click="ButtonNext_Click" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="90" Width="90" Style="{StaticResource RoundButtonStyle}">
+            <Button.Background>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Icons/appbar.control.fastforward.png"/>
+            </Button.Background>
+        </Button>
+    </Grid>
+</UserControl>
