@@ -7,6 +7,8 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using LockEx.Resources;
 using LockEx.Models.Main;
+using System.Threading;
+using System.Globalization;
 
 namespace LockEx
 {
@@ -19,6 +21,8 @@ namespace LockEx
 
         public App()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             UnhandledException += Application_UnhandledException;
             InitializeComponent();
             InitializePhoneApplication();

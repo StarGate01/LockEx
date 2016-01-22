@@ -3,6 +3,7 @@
   <DefaultLanguage xmlns="" code="de-DE" />
   <Languages xmlns="">
     <Language code="de-DE" />
+    <Language code="en-US" />
   </Languages>
   <!-- HubType="268435456" -->
   <App xmlns="" ProductID="{74bb9628-1740-4ccc-9efd-6bd8f12fd300}" Title="LockEx" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Christoph Honal" Description="Lockscreen" SDOptOut="false" BackUpOptOut="false" Publisher="LockEx" PublisherID="{0470670f-e782-4fec-85a5-de0b180c95b9}">
