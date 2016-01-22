@@ -124,7 +124,7 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die leicht Bewölkt ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bewölkt ähnelt.
         /// </summary>
         public static string FewClouds {
             get {

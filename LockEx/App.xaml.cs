@@ -21,8 +21,6 @@ namespace LockEx
 
         public App()
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             UnhandledException += Application_UnhandledException;
             InitializeComponent();
             InitializePhoneApplication();
