@@ -41,7 +41,8 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <ProgressBar Height="10" Margin="0,32,0,0" VerticalAlignment="Top" Visibility="{Binding WeatherView.ErrorVisible}" IsIndeterminate="True"/>
-        <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="16"  Visibility="{Binding WeatherView.ErrorVisible}" HorizontalAlignment="Right" Text="{Binding Path=LocalizedResources.LoadingData, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="16" TextAlignment="Right" Opacity="0.75" Padding="3" Margin="0,42,9,0" />
+        <ProgressBar Height="10" Margin="0,32,0,0" VerticalAlignment="Top" Visibility="{Binding WeatherView.LoadingVisible}" IsIndeterminate="True"/>
+        <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="16"  Visibility="{Binding WeatherView.LoadingVisible}" HorizontalAlignment="Right" Text="{Binding Path=LocalizedResources.LoadingData, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="16" TextAlignment="Right" Opacity="0.75" Padding="3" Margin="0,42,9,0" />
+        <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="16"  Visibility="{Binding WeatherView.ErrorVisible}" HorizontalAlignment="Right" Text="{Binding Path=LocalizedResources.Error, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="16" TextAlignment="Right" Opacity="0.75" Padding="3" Margin="0,42,9,0" />
     </Grid>
 </UserControl>

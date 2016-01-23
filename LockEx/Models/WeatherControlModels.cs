@@ -48,8 +48,8 @@ namespace LockEx.Models.WeatherControl
         {
             { WeatherStates.Clear, new Uri("/Assets/Weather/clear.png", UriKind.Relative) },
             { WeatherStates.FewClouds, new Uri("/Assets/Weather/cloud1.png", UriKind.Relative) },
-            { WeatherStates.ScatteredClouds, new Uri("/Assets/Weather/cloud.png", UriKind.Relative)},
-            { WeatherStates.BrokenClouds, new Uri("/Assets/Weather/cloud.png", UriKind.Relative) },
+            { WeatherStates.ScatteredClouds, new Uri("/Assets/Weather/cloud2.png", UriKind.Relative)},
+            { WeatherStates.BrokenClouds, new Uri("/Assets/Weather/cloud2.png", UriKind.Relative) },
             { WeatherStates.ShowerRain, new Uri("/Assets/Weather/rain2.png", UriKind.Relative) },
             { WeatherStates.Rain, new Uri("/Assets/Weather/rain1.png", UriKind.Relative) },
             { WeatherStates.Thunderstorm, new Uri("/Assets/Weather/thunderstorm.png", UriKind.Relative) },
@@ -296,6 +296,20 @@ namespace LockEx.Models.WeatherControl
                 }
             }
         }
+        private Visibility _loadingVisible;
+        public Visibility LoadingVisible
+        {
+            get
+            {
+                return _loadingVisible;
+            }
+            set
+            {
+                _loadingVisible = value;
+                RaisePropertyChanged("LoadingVisible");
+                RaisePropertyChanged("UIVisible");
+            }
+        }
         private Visibility _errorVisible;
         public Visibility ErrorVisible
         {
@@ -314,7 +328,7 @@ namespace LockEx.Models.WeatherControl
         {
             get
             {
-                return _errorVisible == Visibility.Visible? Visibility.Collapsed : Visibility.Visible;
+                return (_errorVisible == Visibility.Visible || _loadingVisible == Visibility.Visible) ? Visibility.Collapsed : Visibility.Visible;
             }
         }
 
@@ -362,11 +376,12 @@ namespace LockEx.Models.WeatherControl
 
         public async Task PopulateData()
         {
-            ErrorVisible = Visibility.Visible;
+            ErrorVisible = Visibility.Collapsed;
+            LoadingVisible = Visibility.Visible;
             MultipleDaysForecast resObj = await owmClient.GetDaysForcast(City, AppResources.OWMlang, 9);
             if (resObj != null)
             {
-                ErrorVisible = Visibility.Collapsed;
+                LoadingVisible = Visibility.Collapsed;
                 resObj.Forecasts.Sort((a, b) => a.Timestamp.CompareTo(b.Timestamp));
                 Entries.Clear();
                 foreach (Forecast forecast in resObj.Forecasts)
@@ -381,6 +396,11 @@ namespace LockEx.Models.WeatherControl
                             info, Math.Round(forecast.Temperature.Min), Math.Round(forecast.Temperature.Max)));
                     }
                 }
+            }
+            else
+            {
+                LoadingVisible = Visibility.Collapsed;
+                ErrorVisible = Visibility.Visible;
             }
         }
 

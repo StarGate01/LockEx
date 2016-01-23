@@ -281,6 +281,7 @@ namespace LockEx.Models.Main
             WeatherControlView.City = "München";
             WeatherControlView.TempSuffix = WeatherControlView.TempSuffixes.Celsius;
             WeatherView.ErrorVisible = Visibility.Collapsed;
+            WeatherView.LoadingVisible = Visibility.Collapsed;
             ObservableCollection<BadgesControlEntry> badgesEntries = new ObservableCollection<BadgesControlEntry>();
             BitmapImage placeholder = new BitmapImage(new Uri("/Assets/ApplicationIcon.png", UriKind.Relative));
             for (int i = 0; i < 5; i++) badgesEntries.Add(new BadgesControlEntry(placeholder, "0"));

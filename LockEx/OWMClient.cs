@@ -17,6 +17,12 @@ namespace LockEx.OWM
     public class MultipleDaysForecast
     {
 
+        [DataMember(Name = "cod")]
+        public int Code { get; set; }
+
+        [DataMember(Name = "message")]
+        public string Message { get; set; }
+
         [DataMember(Name = "list")]
         public List<Forecast> Forecasts { get; set; }
 
@@ -113,6 +119,7 @@ namespace LockEx.OWM
                 using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(resString)))
                 {
                     MultipleDaysForecast forecast = (MultipleDaysForecast)serializer.ReadObject(ms);
+                    if (forecast.Code != 200) return null;
                     return forecast;
                 }
             }

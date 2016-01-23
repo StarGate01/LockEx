@@ -35,7 +35,7 @@ namespace LockEx
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!SystemProtection.ScreenLocked) //&& false)
+            if (!SystemProtection.ScreenLocked)// && false)
             {
                 NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
                 base.OnNavigatedTo(e);

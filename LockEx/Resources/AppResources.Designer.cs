@@ -124,7 +124,16 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Bewölkt ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fehler beim Laden der Daten ähnelt.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die leicht Bewölkt ähnelt.
         /// </summary>
         public static string FewClouds {
             get {

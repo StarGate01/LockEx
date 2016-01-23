@@ -139,7 +139,7 @@
     <value>C</value>
   </data>
   <data name="FewClouds" xml:space="preserve">
-    <value>Bewölkt</value>
+    <value>leicht Bewölkt</value>
   </data>
   <data name="InAWeek" xml:space="preserve">
     <value>In einer Woche</value>
@@ -221,5 +221,8 @@
   </data>
   <data name="WeatherIn" xml:space="preserve">
     <value>Wetter in </value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler beim Laden der Daten</value>
   </data>
 </root>
