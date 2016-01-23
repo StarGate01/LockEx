@@ -10,6 +10,8 @@
 
 **[Downloads](https://github.com/StarGate01/LockEx/releases) (Releases)**
 
+**[German forum posts](http://wpvision.de/stargate01/6770-%5Bhack%5D-lockex-lockscreen-bibliothek-und-app-open-source.html)**
+
 **Thanks to / Sources**: 
 - https://wp8nativeaccess.codeplex.com/
 - http://vilic.info/blog/archives/1138
