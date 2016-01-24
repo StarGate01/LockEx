@@ -130,7 +130,7 @@
     <value>24</value>
   </data>
   <data name="DefaultLongTextMode" xml:space="preserve">
-    <value>false</value>
+    <value>A</value>
   </data>
   <data name="DefaultSecondsVisible" xml:space="preserve">
     <value>true</value>
@@ -242,6 +242,9 @@
   </data>
   <data name="SettingNewsSource" xml:space="preserve">
     <value>Nachrichten-Feed (RSS)</value>
+  </data>
+  <data name="SettingsAbout" xml:space="preserve">
+    <value>Über</value>
   </data>
   <data name="SettingsNews" xml:space="preserve">
     <value>Nachrichten</value>

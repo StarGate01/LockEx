@@ -18,6 +18,7 @@
 
     <phone:PhoneApplicationPage.Resources>
         <model:LeftControlsIntConverter x:Name="leftControlsIntConverter"/>
+        <model:LongTextModesIntConverter x:Name="longTextModesIntConverter"/>
         <weathermodel:TempSuffixesIntConverter x:Name="tempSuffixesIntConverter"/>
     </phone:PhoneApplicationPage.Resources>
 
@@ -28,12 +29,13 @@
                 <Grid>
                     <toolkit:ToggleSwitch IsChecked="{Binding IsLockscreen, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingLockscreen, Source={StaticResource LocalizedStrings}}" Margin="0,-16,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
                     <toolkit:ToggleSwitch IsChecked="{Binding IsBackground, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingsBackground, Source={StaticResource LocalizedStrings}}" Margin="0,44,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding LongTextMode, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingLongTextMode, Source={StaticResource LocalizedStrings}}" Margin="0,104,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.HourFormatIs12, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingHourFormat, Source={StaticResource LocalizedStrings}}" Margin="0,164,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.SecondsVisibleBool, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingDisplaySeconds, Source={StaticResource LocalizedStrings}}" Margin="0,224,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding FlashlightVisibleBool, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingShowFlashlight, Source={StaticResource LocalizedStrings}}" Margin="0,284,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <TextBlock HorizontalAlignment="Left" Margin="10,376,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLeftControl, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light" RenderTransformOrigin="0.484,-0.039"/>
-                    <toolkit:ListPicker ItemsSource="{Binding LeftControlsStrings, Mode=TwoWay}" SelectedIndex="{Binding LeftControl, Converter={StaticResource leftControlsIntConverter}, Mode=TwoWay}" Margin="10,419,10,57" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.HourFormatIs12, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingHourFormat, Source={StaticResource LocalizedStrings}}" Margin="0,104,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.SecondsVisibleBool, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingDisplaySeconds, Source={StaticResource LocalizedStrings}}" Margin="0,164,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding FlashlightVisibleBool, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingShowFlashlight, Source={StaticResource LocalizedStrings}}" Margin="0,224,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <TextBlock HorizontalAlignment="Left" Margin="10,316,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLeftControl, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
+                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LeftControlsStrings, Mode=TwoWay}" SelectedIndex="{Binding LeftControl, Converter={StaticResource leftControlsIntConverter}, Mode=TwoWay}" Margin="10,359,10,226" />
+                    <TextBlock HorizontalAlignment="Left" Margin="10,454,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLongTextMode, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light" />
+                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LongTextModesStrings, Mode=TwoWay}" SelectedIndex="{Binding LongTextMode, Converter={StaticResource longTextModesIntConverter}, Mode=TwoWay}" Margin="10,497,10,91" />
                 </Grid>
             </phone:PivotItem>
 
@@ -42,7 +44,7 @@
                     <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.SettingCity, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
                     <TextBox HorizontalAlignment="Left" Height="72" Margin="0,43,0,0" TextWrapping="Wrap" Text="{Binding WeatherView.City, Mode=TwoWay}" VerticalAlignment="Top" Width="456"/>
                     <TextBlock HorizontalAlignment="Left" Margin="10,139,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingTempSuffix, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
-                    <toolkit:ListPicker ItemsSource="{Binding WeatherView.TempSuffixesStrings, Mode=TwoWay}" SelectedIndex="{Binding WeatherView.TempSuffix, Converter={StaticResource tempSuffixesIntConverter}, Mode=TwoWay}" Margin="10,187,10,-337" />
+                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding WeatherView.TempSuffixesStrings, Mode=TwoWay}" SelectedIndex="{Binding WeatherView.TempSuffix, Converter={StaticResource tempSuffixesIntConverter}, Mode=TwoWay}" Margin="10,187,10,-337" />
                 </Grid>
             </phone:PivotItem>
 
@@ -50,6 +52,13 @@
                 <Grid>
                     <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.SettingNewsSource, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
                     <TextBox HorizontalAlignment="Left" Height="72" Margin="0,43,0,0" TextWrapping="Wrap" Text="{Binding NewsView.Source, Mode=TwoWay}" VerticalAlignment="Top" Width="456"/>
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.SettingsAbout, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="Christoph Honal, 2016&#13;Version Alpha 0.0.3&#13;&#13;Thanks to wpvision.de and xda&#x2011;developers.com&#13;" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light" />
+                    <HyperlinkButton HorizontalAlignment="Left" Click="HyperlinkButton_Click" Tag="https://github.com/StarGate01/LockEx" Margin="0,255,0,352" FontSize="32" FontFamily="Segoe WP SemiLight">LockEx GitHub</HyperlinkButton>
                 </Grid>
             </phone:PivotItem>
         </phone:Pivot>

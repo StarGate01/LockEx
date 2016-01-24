@@ -115,7 +115,7 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die false ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die A ähnelt.
         /// </summary>
         public static string DefaultLongTextMode {
             get {
@@ -309,6 +309,15 @@ namespace LockEx.Resources {
         public static string SettingNewsSource {
             get {
                 return ResourceManager.GetString("SettingNewsSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Über ähnelt.
+        /// </summary>
+        public static string SettingsAbout {
+            get {
+                return ResourceManager.GetString("SettingsAbout", resourceCulture);
             }
         }
         

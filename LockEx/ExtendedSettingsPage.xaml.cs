@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Windows.System;
 
 namespace LockEx
 {
@@ -23,6 +24,11 @@ namespace LockEx
         {
             NavigationService.RemoveBackEntry();
             base.OnNavigatedTo(e);
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            Launcher.LaunchUriAsync(new Uri((string)((HyperlinkButton)sender).Tag));
         }
 
     }

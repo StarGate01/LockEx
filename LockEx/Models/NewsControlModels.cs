@@ -181,7 +181,7 @@ namespace LockEx.Models.NewsControl
             }
         }
 
-        private const string RFC822 = "ddd, dd MMM yyyy HH:mm:ss zzz";
+        //private const string RFC822 = "ddd, dd MMM yyyy HH:mm:ss zzz";
 
         public NewsControlView()
             : this(new ObservableCollection<NewsControlEntry>(), null) { }
@@ -206,10 +206,22 @@ namespace LockEx.Models.NewsControl
                 Entries.Clear();
                 foreach(XElement item in items)
                 {
-                    DateTime dt = DateTime.ParseExact(item.Element("pubDate").Value, RFC822, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None);
+                   /* DateTime dt = DateTime.Today;
+                    try
+                    {
+                        dt = DateTime.ParseExact(item.Element("pubDate").Value, "r", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None);
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            dt = DateTime.ParseExact(item.Element("pubDate").Value, RFC822, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None);
+                        }
+                        catch { }
+                    }*/
                     string title = Regex.Replace(item.Element("title").Value, "<.*?>", String.Empty);
                     string description = Regex.Replace(item.Element("description").Value, "<.*?>", String.Empty);
-                    Entries.Add(new NewsControlEntry(title, description, new Uri(item.Element("link").Value), dt));
+                    Entries.Add(new NewsControlEntry(title, description, new Uri(item.Element("link").Value), DateTime.Now));
                 }
             }
             catch

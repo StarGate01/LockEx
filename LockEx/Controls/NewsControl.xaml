@@ -10,9 +10,9 @@
     d:DesignHeight="245" d:DesignWidth="280"
     xmlns:model="clr-namespace:LockEx.Models.Main">
 
-    <Grid x:Name="LayoutRoot" Background="Transparent"
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}"
         d:DataContext="{d:DesignInstance Type=model:MainView, IsDesignTimeCreatable=True}">
-        <TextBlock Text="{Binding NewsView.Title}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="20"  TextAlignment="Right" Height="32" Opacity="0.9" Padding="3" Margin="0,0,5,0" />
+        <TextBlock Margin="3,0,0,0" Text="{Binding NewsView.Title}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe WP SemiLight" FontSize="20"  TextAlignment="Left" Height="32" Opacity="0.9" Padding="3" />
         <ListBox Margin="0,32,0,0" Visibility="{Binding NewsView.UIVisible}" ItemsSource="{Binding NewsView.Entries}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -22,8 +22,8 @@
                                 <RowDefinition Height="20" />
                                 <RowDefinition Height="39" />
                             </Grid.RowDefinitions>
-                            <TextBlock LineStackingStrategy="BlockLineHeight" LineHeight="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="{Binding Title}" VerticalAlignment="Top" FontFamily="Segoe WP Semibold" FontSize="14" TextAlignment="Left" Opacity="0.9" Padding="3" />
-                            <RichTextBox LineStackingStrategy="BlockLineHeight" LineHeight="13" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" FontFamily="Segoe WP SemiLight" FontSize="13" Opacity="0.75"  VerticalAlignment="Top" TextAlignment="Justify" Margin="-8,0" >
+                            <TextBlock Margin="3,0,0,0" LineStackingStrategy="BlockLineHeight" LineHeight="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="{Binding Title}" VerticalAlignment="Top" FontFamily="Segoe WP Semibold" FontSize="14" TextAlignment="Left" Opacity="0.9" Padding="3" />
+                            <RichTextBox LineStackingStrategy="BlockLineHeight" LineHeight="13" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" FontFamily="Segoe WP SemiLight" FontSize="13" Opacity="0.75"  VerticalAlignment="Top" TextAlignment="Justify" Margin="-6,0,-8,0" >
                                 <Paragraph>
                                     <Run Text="{Binding Description}" />
                                 </Paragraph>

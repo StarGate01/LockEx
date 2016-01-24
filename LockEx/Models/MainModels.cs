@@ -34,6 +34,11 @@ namespace LockEx.Models.Main
             WeatherControl, NewsControl
         }
 
+        public enum LongTextModes
+        {
+            Always, Never, Auto
+        }
+
         #region Maps
 
         private static Dictionary<bool, Uri> FlashlightImageMap = new Dictionary<bool, Uri>()
@@ -50,6 +55,18 @@ namespace LockEx.Models.Main
         {
             { "N", LeftControls.NewsControl },
             { "W", LeftControls.WeatherControl }
+        };
+        public static Dictionary<LongTextModes, string> LongTextModeCharMap = new Dictionary<LongTextModes, string>()
+        {
+            { LongTextModes.Always, "E" },
+            { LongTextModes.Never, "D" },
+            { LongTextModes.Auto, "A" }
+        };
+        private static Dictionary<string, LongTextModes> LongTextModeReverseCharMap = new Dictionary<string, LongTextModes>()
+        {
+            { "E", LongTextModes.Always },
+            { "D", LongTextModes.Never },
+            { "A", LongTextModes.Auto }
         };
 
         #endregion
@@ -198,40 +215,41 @@ namespace LockEx.Models.Main
                 }).Start();
             }
         }
-        private bool _longTextMode;
-        public bool LongTextMode
+        private LongTextModes _longTextMode;
+        public LongTextModes LongTextMode
         {
             get
             {
                 if (DesignerProperties.IsInDesignTool) return _longTextMode;
                 return (IsolatedStorageSettings.ApplicationSettings.Contains("LongTextMode")) ?
-                    (Convert.ToBoolean(IsolatedStorageSettings.ApplicationSettings["LongTextMode"])) :
-                    (Convert.ToBoolean(AppResources.DefaultLongTextMode));
+                   LongTextModeReverseCharMap[(string)IsolatedStorageSettings.ApplicationSettings["LongTextMode"]] :
+                   LongTextModeReverseCharMap[AppResources.DefaultLongTextMode];
             }
             set
             {
                 _longTextMode = value;
                 if (!DesignerProperties.IsInDesignTool)
                 {
-                    IsolatedStorageSettings.ApplicationSettings["LongTextMode"] = value.ToString();
+                    IsolatedStorageSettings.ApplicationSettings["LongTextMode"] = LongTextModeCharMap[value];
                     IsolatedStorageSettings.ApplicationSettings.Save();
                 }
                 RaisePropertyChanged("LongTextMode");
                 RaisePropertyChanged("RightPanelRowSpan");
+                RaisePropertyChanged("LowerPanelVisibility");
             }
         }
         public int RightPanelRowSpan
         {
             get
             {
-                return LongTextMode ? 3 : 1;
+                return (LongTextMode == LongTextModes.Always || (LongTextMode == LongTextModes.Auto && !MusicView.HasMusic)) ? 3 : 1;
             }
         }
         public Visibility LowerPanelVisibility
         {
             get
             {
-                return (!LongTextMode && MusicView.HasMusic) ? Visibility.Visible : Visibility.Collapsed;
+                return (LongTextMode != LongTextModes.Always && MusicView.HasMusic) ? Visibility.Visible : Visibility.Collapsed;
             }
         }
         private double _globalYOffset;
@@ -369,6 +387,14 @@ namespace LockEx.Models.Main
                 return _leftControlsStrings;
             }
         }
+        private Array _longTextModesStrings = Enum.GetValues(typeof(LongTextModes));
+        public Array LongTextModesStrings
+        {
+            get
+            {
+                return _longTextModesStrings;
+            }
+        }
         private Uri defaultImageUri = new Uri("/Assets/Backgrounds/blue_mountains_lq.jpg", UriKind.Relative);
 
         public NativeAPI NAPI;
@@ -395,7 +421,13 @@ namespace LockEx.Models.Main
             {
                 PopulateDesignerData();
             }
-            MusicView.PropertyChanged += (object sender, PropertyChangedEventArgs e) => { if (e.PropertyName == "HasMusic") RaisePropertyChanged("LowerPanelVisibility"); };
+            MusicView.PropertyChanged += (object sender, PropertyChangedEventArgs e) => {
+                if (e.PropertyName == "HasMusic")
+                {
+                    RaisePropertyChanged("LowerPanelVisibility");
+                    RaisePropertyChanged("RightPanelRowSpan");
+                }
+            };
             Flashlight.PropertyChanged += (object sender, PropertyChangedEventArgs e) => { if (e.PropertyName == "IsTurnedOn") RaisePropertyChanged("FlashlightImageUri"); };
         }
 
@@ -404,7 +436,7 @@ namespace LockEx.Models.Main
             _imageUri = defaultImageUri;
             _isLockscreen = true;
             _isBackground = true;
-            _longTextMode = false;
+            _longTextMode = LongTextModes.Auto;
             _globalYOffset = 0;
             _flashlightVisibleBool = true;
             _flashlight.IsTurnedOn = true;
@@ -578,6 +610,21 @@ durch die Hilfe einer Gruppe lokaler Kinderdedektive unter der Führung eines ge
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return Enum.GetValues(typeof(MainView.LeftControls)).GetValue((int)value);
+        }
+
+    }
+
+    public class LongTextModesIntConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return (int)(MainView.LongTextModes)value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return Enum.GetValues(typeof(MainView.LongTextModes)).GetValue((int)value);
         }
 
     }

@@ -58,6 +58,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <DataTemplate x:Key="PickerFullModeItemTemplate">
+            <TextBlock Text="{Binding}" FontSize="40" Margin="10" />
+        </DataTemplate>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

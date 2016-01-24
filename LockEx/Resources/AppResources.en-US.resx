@@ -130,7 +130,7 @@
     <value>12</value>
   </data>
   <data name="DefaultLongTextMode" xml:space="preserve">
-    <value>false</value>
+    <value>A</value>
   </data>
   <data name="DefaultSecondsVisible" xml:space="preserve">
     <value>true</value>
@@ -235,13 +235,16 @@
     <value>W</value>
   </data>
   <data name="DefaultNewsSource" xml:space="preserve">
-    <value>http://news.wpvision.de/feed/</value>
+    <value>http://www.telegraph.co.uk/news/worldnews/home-int/rss</value>
   </data>
   <data name="SettingLeftControl" xml:space="preserve">
     <value>Left side</value>
   </data>
   <data name="SettingNewsSource" xml:space="preserve">
     <value>News feed (RSS)</value>
+  </data>
+  <data name="SettingsAbout" xml:space="preserve">
+    <value>About</value>
   </data>
   <data name="SettingsNews" xml:space="preserve">
     <value>News</value>
