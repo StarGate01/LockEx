@@ -9,9 +9,31 @@ using System.Windows.Media;
 using System.Windows.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using System.Windows.Threading;
 
 namespace LockEx.Models.MusicControl
 {
+
+    public class XNAFrameworkDispatcherService : IApplicationService
+    {
+
+        private DispatcherTimer frameworkDispatcherTimer;
+
+        public XNAFrameworkDispatcherService()
+        {
+            this.frameworkDispatcherTimer = new DispatcherTimer();
+            this.frameworkDispatcherTimer.Interval = TimeSpan.FromTicks(333333);
+            this.frameworkDispatcherTimer.Tick += frameworkDispatcherTimer_Tick;
+            FrameworkDispatcher.Update();
+        }
+
+        void frameworkDispatcherTimer_Tick(object sender, EventArgs e) { FrameworkDispatcher.Update(); }
+
+        void IApplicationService.StartService(ApplicationServiceContext context) { this.frameworkDispatcherTimer.Start(); }
+
+        void IApplicationService.StopService() { this.frameworkDispatcherTimer.Stop(); }
+
+    }
 
     public class MusicControlView : INotifyPropertyChanged
     {
@@ -138,9 +160,9 @@ namespace LockEx.Models.MusicControl
             _song = song;
             _artist = artist;
             _position = position;
-            FrameworkDispatcher.Update();
-            MediaPlayer_ActiveSongChanged(null, null);
-            MediaPlayer_MediaStateChanged(null, null);
+            //FrameworkDispatcher.Update();
+            //MediaPlayer_ActiveSongChanged(null, null);
+            //MediaPlayer_MediaStateChanged(null, null);
             MediaPlayer.ActiveSongChanged += MediaPlayer_ActiveSongChanged;
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
         }

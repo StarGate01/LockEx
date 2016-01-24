@@ -9,7 +9,10 @@ using Microsoft.Xna.Framework.Media;
 using Windows.Phone.System.LockScreenExtensibility;
 using System.Diagnostics;
 using System.Windows.Data;
+using Microsoft.Phone.BackgroundAudio;
 using System.Windows.Media;
+using System.Threading.Tasks;
+using LockEx.Models.Main;
 
 namespace LockEx
 {
@@ -18,7 +21,6 @@ namespace LockEx
     {
 
         private DispatcherTimer secondsTimer;
-        private DispatcherTimer musicTimer;
 
         private bool swipeComplete = false;
 
@@ -28,24 +30,30 @@ namespace LockEx
             secondsTimer = new DispatcherTimer();
             secondsTimer.Interval = new TimeSpan(0, 0, 1);
             secondsTimer.Tick += secondsTimer_Tick;
-            musicTimer = new DispatcherTimer();
-            musicTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            musicTimer.Tick += musicTimer_Tick;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (!SystemProtection.ScreenLocked)// && false)
             {
-                NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/ExtendedSettingsPage.xaml", UriKind.Relative));
                 base.OnNavigatedTo(e);
                 return;
             }
             App.MainViewModel.PopulateShellChromeData();
-            App.MainViewModel.WeatherView.PopulateData();
-            FrameworkDispatcher.Update();
+            new Task(async () =>
+            {
+                switch (App.MainViewModel.LeftControl)
+                {
+                    case MainView.LeftControls.NewsControl:
+                        await App.MainViewModel.NewsView.PopulateData();
+                        break;
+                    case MainView.LeftControls.WeatherControl:
+                        await App.MainViewModel.WeatherView.PopulateData();
+                        break;
+                }
+            });
             secondsTimer.Start();
-            musicTimer.Start();
             App.MainViewModel.GlobalYOffset = 0;
             base.OnNavigatedTo(e);
         }
@@ -61,11 +69,6 @@ namespace LockEx
         {
             App.MainViewModel.DateTimeView.Value = DateTime.Now;
             App.MainViewModel.PopulateShellChromeData();
-        }
-
-        void musicTimer_Tick(object sender, EventArgs e)
-        {
-            FrameworkDispatcher.Update();
             App.MainViewModel.MusicView.RaisePropertyChanged("Position");
         }
 
@@ -110,6 +113,11 @@ namespace LockEx
             binding.Source = App.MainViewModel;
             BindingOperations.SetBinding(GlobalYO, CompositeTransform.TranslateYProperty, binding);
             App.MainViewModel.GlobalYOffset = 0;
+        }
+
+        private void ButtonFlashlight_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainViewModel.Flashlight.IsTurnedOn = !App.MainViewModel.Flashlight.IsTurnedOn;
         }
 
     }

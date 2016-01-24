@@ -1,22 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
-using System.Windows.Media.Imaging;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using Windows.Devices.Sensors;
-using Windows.Phone.System.UserProfile;
+using Microsoft.Phone.Shell;
 
 namespace LockEx
 {
 
-    public partial class SettingsPage : PhoneApplicationPage
+    public partial class ExtendedSettingsPage : PhoneApplicationPage
     {
 
-        public SettingsPage()
+        public ExtendedSettingsPage()
         {
             InitializeComponent();
         }

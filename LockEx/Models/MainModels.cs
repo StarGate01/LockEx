@@ -4,8 +4,10 @@ using LockEx.Models.BadgesControl;
 using LockEx.Models.DateTimeControl;
 using LockEx.Models.DetailedTextControl;
 using LockEx.Models.MusicControl;
+using LockEx.Models.NewsControl;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.IO;
@@ -16,32 +18,58 @@ using Windows.Phone.System.UserProfile;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-
+using LockEx.Hardware;
 using RTComponent;
 using RTComponent.NotificationsSnapshot;
+using System.Windows.Data;
 
 namespace LockEx.Models.Main
 {
 
-    public class MainView : INotifyPropertyChanged
+    public class MainView : INotifyPropertyChanged, IDisposable
     {
+
+        public enum LeftControls
+        {
+            WeatherControl, NewsControl
+        }
+
+        #region Maps
+
+        private static Dictionary<bool, Uri> FlashlightImageMap = new Dictionary<bool, Uri>()
+        {
+            { true, new Uri("/Assets/Icons/lightbulb2.png", UriKind.Relative) },
+            { false, new Uri("/Assets/Icons/lightbulb.png", UriKind.Relative) }
+        };
+        public static Dictionary<LeftControls, string> LeftControlsCharMap = new Dictionary<LeftControls, string>()
+        {
+            { LeftControls.NewsControl, "N" },
+            { LeftControls.WeatherControl, "W" }
+        };
+        private static Dictionary<string, LeftControls> LeftControlsReverseCharMap = new Dictionary<string, LeftControls>()
+        {
+            { "N", LeftControls.NewsControl },
+            { "W", LeftControls.WeatherControl }
+        };
+
+        #endregion
 
         private WeatherControlView _weatherView;
         public WeatherControlView WeatherView
         {
             get
-            { 
+            {
                 return _weatherView;
             }
             set
             {
-                _weatherView = value; 
+                _weatherView = value;
                 RaisePropertyChanged("WeatherView");
             }
         }
         private BadgesControlView _badgesView;
-        public BadgesControlView BadgesView 
-        { 
+        public BadgesControlView BadgesView
+        {
             get
             {
                 return _badgesView;
@@ -53,7 +81,7 @@ namespace LockEx.Models.Main
             }
         }
         private DateTimeControlView _dateTimeView;
-        public DateTimeControlView DateTimeView 
+        public DateTimeControlView DateTimeView
         {
             get
             {
@@ -89,6 +117,19 @@ namespace LockEx.Models.Main
             {
                 _musicView = value;
                 RaisePropertyChanged("MusicView");
+            }
+        }
+        private NewsControlView _newsView;
+        public NewsControlView NewsView
+        {
+            get
+            {
+                return _newsView;
+            }
+            set
+            {
+                _newsView = value;
+                RaisePropertyChanged("NewsView");
             }
         }
         private Uri _imageUri;
@@ -138,7 +179,7 @@ namespace LockEx.Models.Main
             set
             {
                 if (DesignerProperties.IsInDesignTool) _isBackground = value;
-                else if(value) new Task(async () =>
+                else if (value) new Task(async () =>
                 {
                     try
                     {
@@ -234,7 +275,100 @@ namespace LockEx.Models.Main
                 return ExtensibilityApp.GetLockPinpadHeight() != 0;
             }
         }
+        private bool _flashlightVisibleBool;
+        public bool FlashlightVisibleBool
+        {
+            get
+            {
+                if (DesignerProperties.IsInDesignTool) return _flashlightVisibleBool;
+                return (IsolatedStorageSettings.ApplicationSettings.Contains("FlashlightVisible")) ?
+                    (Convert.ToBoolean(IsolatedStorageSettings.ApplicationSettings["FlashlightVisible"])) :
+                    (Convert.ToBoolean(AppResources.DefaultFlashlightVisible));
+            }
+            set
+            {
+                _flashlightVisibleBool = value;
+                if (!DesignerProperties.IsInDesignTool)
+                {
+                    IsolatedStorageSettings.ApplicationSettings["FlashlightVisible"] = value.ToString();
+                    IsolatedStorageSettings.ApplicationSettings.Save();
+                }
+                RaisePropertyChanged("FlashlightVisibleBool");
+                RaisePropertyChanged("FlashlightVisible");
+            }
+        }
+        public Visibility FlashlightVisible
+        {
+            get
+            {
+                return (FlashlightVisibleBool) ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        private Flashlight _flashlight;
+        public Flashlight Flashlight
+        {
+            get
+            {
+                return _flashlight;
+            }
+            set
+            {
+                _flashlight = value;
+                RaisePropertyChanged("Flashlight");
+                RaisePropertyChanged("FlashlightImageUri");
+            }
 
+        }
+        public Uri FlashlightImageUri
+        {
+            get
+            {
+                return FlashlightImageMap[Flashlight.IsTurnedOn];
+            }
+        }
+        private LeftControls _leftControl;
+        public LeftControls LeftControl
+        {
+            get
+            {
+                if (DesignerProperties.IsInDesignTool) return _leftControl;
+                return (IsolatedStorageSettings.ApplicationSettings.Contains("LeftControl")) ?
+                    LeftControlsReverseCharMap[(string)IsolatedStorageSettings.ApplicationSettings["LeftControl"]] :
+                   LeftControlsReverseCharMap[AppResources.DefaultLeftControl];
+            }
+            set
+            {
+                _leftControl = value;
+                if (!DesignerProperties.IsInDesignTool)
+                {
+                    IsolatedStorageSettings.ApplicationSettings["LeftControl"] = LeftControlsCharMap[value];
+                    IsolatedStorageSettings.ApplicationSettings.Save();
+                }
+            }
+        }
+        public Visibility WeatherControlVisible
+        {
+            get
+            {
+                return LeftControl == LeftControls.WeatherControl ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        public Visibility NewsControlVisible
+        {
+            get
+            {
+                return LeftControl == LeftControls.NewsControl ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        private Array _leftControlsStrings = Enum.GetValues(typeof(LeftControls));
+        public Array LeftControlsStrings
+        {
+            get
+            {
+                return _leftControlsStrings;
+            }
+        }
         private Uri defaultImageUri = new Uri("/Assets/Backgrounds/blue_mountains_lq.jpg", UriKind.Relative);
 
         public NativeAPI NAPI;
@@ -249,8 +383,10 @@ namespace LockEx.Models.Main
             _dateTimeView = new DateTimeControlView();
             _detailedTextView = new DetailedTextControlView();
             _musicView = new MusicControlView();
-            if(!DesignerProperties.IsInDesignTool)
-            { 
+            _newsView = new NewsControlView();
+            _flashlight = new Flashlight();
+            if (!DesignerProperties.IsInDesignTool)
+            {
                 NAPI = new NativeAPI();
                 var cont = Application.Current.Host.Content;
                 NAPI.InitUIXMAResources((int)Math.Ceiling(cont.ActualWidth * cont.ScaleFactor * 0.01), (int)Math.Ceiling(cont.ActualHeight * cont.ScaleFactor * 0.01));
@@ -260,6 +396,7 @@ namespace LockEx.Models.Main
                 PopulateDesignerData();
             }
             MusicView.PropertyChanged += (object sender, PropertyChangedEventArgs e) => { if (e.PropertyName == "HasMusic") RaisePropertyChanged("LowerPanelVisibility"); };
+            Flashlight.PropertyChanged += (object sender, PropertyChangedEventArgs e) => { if (e.PropertyName == "IsTurnedOn") RaisePropertyChanged("FlashlightImageUri"); };
         }
 
         public void PopulateDesignerData()
@@ -269,19 +406,20 @@ namespace LockEx.Models.Main
             _isBackground = true;
             _longTextMode = false;
             _globalYOffset = 0;
+            _flashlightVisibleBool = true;
+            _flashlight.IsTurnedOn = true;
+            _leftControl = LeftControls.NewsControl;
             WeatherView.Entries = new ObservableCollection<WeatherControlEntry>()
             {
-                new WeatherControlEntry(DateTime.Today, WeatherControlEntry.WeatherStates.Clear, "Lorem ipsum", 20.4, 30.6),
-                new WeatherControlEntry(DateTime.Today.AddDays(1), WeatherControlEntry.WeatherStates.FewClouds, "Sit dolor amet", -10.4, 3),
-                new WeatherControlEntry(DateTime.Today.AddDays(2), WeatherControlEntry.WeatherStates.Rain, "Consecutivis nam", -10.4, 3),
-                new WeatherControlEntry(DateTime.Today.AddDays(3), WeatherControlEntry.WeatherStates.Snow, "Labor hams", -20, 23.5),
-                new WeatherControlEntry(DateTime.Today.AddDays(7), WeatherControlEntry.WeatherStates.Thunderstorm, "Mongolis plebeiis", 3, 11),
-                new WeatherControlEntry(DateTime.Today.AddDays(14), WeatherControlEntry.WeatherStates.BrokenClouds, "Ay Macarena", 14, 18.7)
+                new WeatherControlEntry(DateTime.Today, WeatherControlEntry.WeatherStates.Clear, "Klarer Himmel", 20.4, 30.6),
+                new WeatherControlEntry(DateTime.Today.AddDays(1), WeatherControlEntry.WeatherStates.FewClouds, "Einige Wolken", -10.4, 3),
+                new WeatherControlEntry(DateTime.Today.AddDays(2), WeatherControlEntry.WeatherStates.Rain, "Starker Regen", -10.4, 3),
+                new WeatherControlEntry(DateTime.Today.AddDays(3), WeatherControlEntry.WeatherStates.Snow, "Schnee", -20, 23.5),
+                new WeatherControlEntry(DateTime.Today.AddDays(7), WeatherControlEntry.WeatherStates.Thunderstorm, "Ay caramba!", 3, 11),
+                new WeatherControlEntry(DateTime.Today.AddDays(14), WeatherControlEntry.WeatherStates.BrokenClouds, "Dichte Wolken", 14, 18.7)
             };
             WeatherControlView.City = "München";
             WeatherControlView.TempSuffix = WeatherControlView.TempSuffixes.Celsius;
-            WeatherView.ErrorVisible = Visibility.Collapsed;
-            WeatherView.LoadingVisible = Visibility.Collapsed;
             ObservableCollection<BadgesControlEntry> badgesEntries = new ObservableCollection<BadgesControlEntry>();
             BitmapImage placeholder = new BitmapImage(new Uri("/Assets/ApplicationIcon.png", UriKind.Relative));
             for (int i = 0; i < 5; i++) badgesEntries.Add(new BadgesControlEntry(placeholder, "0"));
@@ -299,13 +437,44 @@ namespace LockEx.Models.Main
             MusicView.Artist = "Green Day";
             MusicView.PlayState = Microsoft.Xna.Framework.Media.MediaState.Playing;
             MusicView.Position = 60.5;
+            PopulateMockData();
         }
 
         public void PopulateData()
         {
+            PopulateMockData();
             if (IsolatedStorageSettings.ApplicationSettings.Contains("CustomImage"))
-                _imageUri = (Uri) IsolatedStorageSettings.ApplicationSettings["CustomImage"];
+                _imageUri = (Uri)IsolatedStorageSettings.ApplicationSettings["CustomImage"];
             else _imageUri = defaultImageUri;
+        }
+
+        public void PopulateMockData()
+        {
+            WeatherView.ErrorVisible = Visibility.Collapsed;
+            WeatherView.LoadingVisible = Visibility.Collapsed;
+            NewsView.Entries = new ObservableCollection<NewsControlEntry>()
+            {
+                new NewsControlEntry("Frieden im nahen Osten für immer und ewig und alle Zeiten", 
+@"Heute wurde ewiger Friede zwischen Christen, Juden, Muslimen und allen Völkern in der Welt beschlossen. 
+Ein Sprecher vor Ort bestätigte, der Grund sei eine rote Kuh, die eine zentrale Rolle in allen Religionen spiele."
+                    , null, DateTime.Now),
+                new NewsControlEntry("Benzinprise unter 0,05€", 
+@"Nach langen Verhandlungen einigte sich die OPEC wiederholt nicht auf eine Begrenzung der Fördermengen. 
+Ohje! Rufen die Grünen - ihrer Meinung nach sollte mehr mit Fahrädern in Bussen gefahren werden."
+                    , null, DateTime.Now.AddDays(-1)),
+                new NewsControlEntry("NSA spionierte Toiletten aus", 
+@"Wie nun aus internen Berichten des BND hervorgeht, beobachtete der amerikanische Geheimdienst NSA jahrelang Toiletten im Bundestag. 
+Aus den Dokumenten geht lediglich hervor was für ein 'bschissener Job' die Überwachung war."
+                    , null, DateTime.Now.AddDays(-2)),
+                new NewsControlEntry("Kindergruppe findet Einbrecher", 
+@"Wie die Polizei Hinterdupfing nun bekanntgab, ist der Fall um die im April gestohlene Aktentasche aufgeklärt - nur
+durch die Hilfe einer Gruppe lokaler Kinderdedektive unter der Führung eines gewissen Emils."
+                    , null, DateTime.Now.AddDays(-3))
+            };
+            NewsView.ErrorVisible = Visibility.Collapsed;
+            NewsView.LoadingVisible = Visibility.Collapsed;
+            NewsView.Source = new Uri("http://www.example.com");
+            NewsView.Title = "Ernsthafte Nachrichten.de";
         }
 
         public void PopulateShellChromeData()
@@ -372,7 +541,7 @@ namespace LockEx.Models.Main
             if (snapA.DoNotDisturbIconUri != snapB.DoNotDisturbIconUri) return false;
             if (snapA.DrivingModeIconUri != snapB.DrivingModeIconUri) return false;
             if (snapA.Size != snapB.Size) return false;
-            for(int i=0; i<snapA.Badges.Count; i++)
+            for (int i = 0; i < snapA.Badges.Count; i++)
             {
                 if (snapA.Badges[i].IconUri != snapB.Badges[i].IconUri) return false;
                 if (snapA.Badges[i].Type != snapB.Badges[i].Type) return false;
@@ -395,6 +564,26 @@ namespace LockEx.Models.Main
         {
             MainView copy = (MainView)this.MemberwiseClone();
             return copy;
+        }
+
+        public void Dispose()
+        {
+            _flashlight.Dispose();
+        }
+
+    }
+
+    public class LeftControlsIntConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return (int)(MainView.LeftControls)value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return Enum.GetValues(typeof(MainView.LeftControls)).GetValue((int)value);
         }
 
     }

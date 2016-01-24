@@ -205,7 +205,7 @@
     <value>bis</value>
   </data>
   <data name="TheDayAfter" xml:space="preserve">
-    <value>Übermorgen</value>
+    <value>Ü.Morgen</value>
   </data>
   <data name="Thunderstorm" xml:space="preserve">
     <value>Gewitter</value>
@@ -224,5 +224,23 @@
   </data>
   <data name="Error" xml:space="preserve">
     <value>Fehler beim Laden der Daten</value>
+  </data>
+  <data name="DefaultFlashlightVisible" xml:space="preserve">
+    <value>true</value>
+  </data>
+  <data name="SettingShowFlashlight" xml:space="preserve">
+    <value>Taschenlampe</value>
+  </data>
+  <data name="DefaultLeftControl" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="SettingLeftControl" xml:space="preserve">
+    <value>Linke Seite</value>
+  </data>
+  <data name="SettingsNews" xml:space="preserve">
+    <value>Nachrichten</value>
+  </data>
+  <data name="SettingsWeather" xml:space="preserve">
+    <value>Wetter</value>
   </data>
 </root>

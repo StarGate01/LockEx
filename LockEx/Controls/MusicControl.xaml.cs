@@ -25,20 +25,17 @@ namespace LockEx.Controls
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            FrameworkDispatcher.Update();
             MediaPlayer.MovePrevious();
         }
 
         private void ButtonMain_Click(object sender, RoutedEventArgs e)
         {
-            FrameworkDispatcher.Update();
             if (App.MainViewModel.MusicView.PlayState == MediaState.Paused) App.MainViewModel.MusicView.PlayState = MediaState.Playing;
             else if (App.MainViewModel.MusicView.PlayState == MediaState.Playing) App.MainViewModel.MusicView.PlayState = MediaState.Paused;
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            FrameworkDispatcher.Update();
             MediaPlayer.MoveNext();
         }
 

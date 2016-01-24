@@ -88,11 +88,29 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die true ähnelt.
+        /// </summary>
+        public static string DefaultFlashlightVisible {
+            get {
+                return ResourceManager.GetString("DefaultFlashlightVisible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die 24 ähnelt.
         /// </summary>
         public static string DefaultHourFormat {
             get {
                 return ResourceManager.GetString("DefaultHourFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die W ähnelt.
+        /// </summary>
+        public static string DefaultLeftControl {
+            get {
+                return ResourceManager.GetString("DefaultLeftControl", resourceCulture);
             }
         }
         
@@ -250,6 +268,15 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Linke Seite ähnelt.
+        /// </summary>
+        public static string SettingLeftControl {
+            get {
+                return ResourceManager.GetString("SettingLeftControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Als Sperrbildschirm ähnelt.
         /// </summary>
         public static string SettingLockscreen {
@@ -273,6 +300,33 @@ namespace LockEx.Resources {
         public static string SettingsBackground {
             get {
                 return ResourceManager.GetString("SettingsBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Taschenlampe ähnelt.
+        /// </summary>
+        public static string SettingShowFlashlight {
+            get {
+                return ResourceManager.GetString("SettingShowFlashlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nachrichten ähnelt.
+        /// </summary>
+        public static string SettingsNews {
+            get {
+                return ResourceManager.GetString("SettingsNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wetter ähnelt.
+        /// </summary>
+        public static string SettingsWeather {
+            get {
+                return ResourceManager.GetString("SettingsWeather", resourceCulture);
             }
         }
         
@@ -331,7 +385,7 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Übermorgen ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ü.Morgen ähnelt.
         /// </summary>
         public static string TheDayAfter {
             get {

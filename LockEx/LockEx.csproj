@@ -106,16 +106,21 @@
     <Compile Include="Controls\MusicControl.xaml.cs">
       <DependentUpon>MusicControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewsControl.xaml.cs">
+      <DependentUpon>NewsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendedSettingsPage.xaml.cs">
+      <DependentUpon>ExtendedSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Flashlight.cs" />
     <Compile Include="Models\BadgesControlModels.cs" />
     <Compile Include="Models\DateTimeControlModels.cs" />
     <Compile Include="Models\DetailedTextControlModels.cs" />
     <Compile Include="Models\MainModels.cs" />
     <Compile Include="Models\MusicControlModels.cs" />
+    <Compile Include="Models\NewsControlModels.cs" />
     <Compile Include="Models\WeatherControlModels.cs" />
     <Compile Include="OWMClient.cs" />
-    <Compile Include="SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -140,6 +145,8 @@
     <Content Include="Assets\Icons\appbar.control.pause.png" />
     <Content Include="Assets\Icons\appbar.control.play.png" />
     <Content Include="Assets\Icons\appbar.control.rewind.png" />
+    <Content Include="Assets\Icons\lightbulb.png" />
+    <Content Include="Assets\Icons\lightbulb2.png" />
     <Content Include="Assets\Weather\clear.png" />
     <Content Include="Assets\Weather\cloud1.png" />
     <Content Include="Assets\Weather\cloud2.png" />
@@ -168,7 +175,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsPage.xaml">
+    <Page Include="Controls\NewsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExtendedSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,6 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions" />
+    <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
       <Private>True</Private>

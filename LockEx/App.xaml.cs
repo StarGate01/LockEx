@@ -53,6 +53,7 @@ namespace LockEx
 
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            MainViewModel.Dispose();
         }
 
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)

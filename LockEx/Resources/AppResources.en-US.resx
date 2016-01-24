@@ -225,4 +225,22 @@
   <data name="Error" xml:space="preserve">
     <value>Error loading data</value>
   </data>
+  <data name="DefaultFlashlightVisible" xml:space="preserve">
+    <value>true</value>
+  </data>
+  <data name="SettingShowFlashlight" xml:space="preserve">
+    <value>Flashlight</value>
+  </data>
+  <data name="DefaultLeftControl" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="SettingLeftControl" xml:space="preserve">
+    <value>Left side</value>
+  </data>
+  <data name="SettingsNews" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="SettingsWeather" xml:space="preserve">
+    <value>Weather</value>
+  </data>
 </root>
