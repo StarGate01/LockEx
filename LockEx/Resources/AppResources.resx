@@ -234,8 +234,14 @@
   <data name="DefaultLeftControl" xml:space="preserve">
     <value>W</value>
   </data>
+  <data name="DefaultNewsSource" xml:space="preserve">
+    <value>http://news.wpvision.de/feed/</value>
+  </data>
   <data name="SettingLeftControl" xml:space="preserve">
     <value>Linke Seite</value>
+  </data>
+  <data name="SettingNewsSource" xml:space="preserve">
+    <value>Nachrichten-Feed (RSS)</value>
   </data>
   <data name="SettingsNews" xml:space="preserve">
     <value>Nachrichten</value>

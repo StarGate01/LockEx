@@ -437,19 +437,6 @@ namespace LockEx.Models.Main
             MusicView.Artist = "Green Day";
             MusicView.PlayState = Microsoft.Xna.Framework.Media.MediaState.Playing;
             MusicView.Position = 60.5;
-            PopulateMockData();
-        }
-
-        public void PopulateData()
-        {
-            PopulateMockData();
-            if (IsolatedStorageSettings.ApplicationSettings.Contains("CustomImage"))
-                _imageUri = (Uri)IsolatedStorageSettings.ApplicationSettings["CustomImage"];
-            else _imageUri = defaultImageUri;
-        }
-
-        public void PopulateMockData()
-        {
             WeatherView.ErrorVisible = Visibility.Collapsed;
             WeatherView.LoadingVisible = Visibility.Collapsed;
             NewsView.Entries = new ObservableCollection<NewsControlEntry>()
@@ -475,6 +462,13 @@ durch die Hilfe einer Gruppe lokaler Kinderdedektive unter der Führung eines ge
             NewsView.LoadingVisible = Visibility.Collapsed;
             NewsView.Source = new Uri("http://www.example.com");
             NewsView.Title = "Ernsthafte Nachrichten.de";
+        }
+
+        public void PopulateData()
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains("CustomImage"))
+                _imageUri = (Uri)IsolatedStorageSettings.ApplicationSettings["CustomImage"];
+            else _imageUri = defaultImageUri;
         }
 
         public void PopulateShellChromeData()

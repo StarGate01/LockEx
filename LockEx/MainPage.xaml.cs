@@ -41,18 +41,15 @@ namespace LockEx
                 return;
             }
             App.MainViewModel.PopulateShellChromeData();
-            new Task(async () =>
+            switch (App.MainViewModel.LeftControl)
             {
-                switch (App.MainViewModel.LeftControl)
-                {
-                    case MainView.LeftControls.NewsControl:
-                        await App.MainViewModel.NewsView.PopulateData();
-                        break;
-                    case MainView.LeftControls.WeatherControl:
-                        await App.MainViewModel.WeatherView.PopulateData();
-                        break;
-                }
-            });
+                case MainView.LeftControls.NewsControl:
+                    App.MainViewModel.NewsView.PopulateData();
+                    break;
+                case MainView.LeftControls.WeatherControl:
+                    App.MainViewModel.WeatherView.PopulateData();
+                    break;
+            }
             secondsTimer.Start();
             App.MainViewModel.GlobalYOffset = 0;
             base.OnNavigatedTo(e);

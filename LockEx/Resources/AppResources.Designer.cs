@@ -124,6 +124,15 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die http://news.wpvision.de/feed/ ähnelt.
+        /// </summary>
+        public static string DefaultNewsSource {
+            get {
+                return ResourceManager.GetString("DefaultNewsSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die true ähnelt.
         /// </summary>
         public static string DefaultSecondsVisible {
@@ -291,6 +300,15 @@ namespace LockEx.Resources {
         public static string SettingLongTextMode {
             get {
                 return ResourceManager.GetString("SettingLongTextMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nachrichten-Feed (RSS) ähnelt.
+        /// </summary>
+        public static string SettingNewsSource {
+            get {
+                return ResourceManager.GetString("SettingNewsSource", resourceCulture);
             }
         }
         

@@ -47,7 +47,10 @@
             </phone:PivotItem>
 
             <phone:PivotItem Header="{Binding Path=LocalizedResources.SettingsNews, Source={StaticResource LocalizedStrings}}">
-
+                <Grid>
+                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.SettingNewsSource, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
+                    <TextBox HorizontalAlignment="Left" Height="72" Margin="0,43,0,0" TextWrapping="Wrap" Text="{Binding NewsView.Source, Mode=TwoWay}" VerticalAlignment="Top" Width="456"/>
+                </Grid>
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>

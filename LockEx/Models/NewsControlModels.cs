@@ -11,6 +11,9 @@ using System.Windows;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Net.Http;
+using System.Xml;
+using System.Xml.Linq;
+using System.Globalization;
 
 namespace LockEx.Models.NewsControl
 {
@@ -114,12 +117,19 @@ namespace LockEx.Models.NewsControl
         {
             get
             {
-                return _source;
+                if (DesignerProperties.IsInDesignTool) return _source;
+                return (IsolatedStorageSettings.ApplicationSettings.Contains("Source")) ?
+                    new Uri((string)IsolatedStorageSettings.ApplicationSettings["Source"]) :
+                    new Uri(AppResources.DefaultNewsSource);
             }
             set
             {
                 _source = value;
-                RaisePropertyChanged("Source");
+                if (!DesignerProperties.IsInDesignTool)
+                {
+                    IsolatedStorageSettings.ApplicationSettings["Source"] = value.AbsoluteUri;
+                    IsolatedStorageSettings.ApplicationSettings.Save();
+                }
             }
         }
         private string _title;
@@ -171,6 +181,8 @@ namespace LockEx.Models.NewsControl
             }
         }
 
+        private const string RFC822 = "ddd, dd MMM yyyy HH:mm:ss zzz";
+
         public NewsControlView()
             : this(new ObservableCollection<NewsControlEntry>(), null) { }
         public NewsControlView( ObservableCollection<NewsControlEntry> entries, Uri source)
@@ -188,7 +200,17 @@ namespace LockEx.Models.NewsControl
                 HttpClient client = new HttpClient();
                 String resString = await client.GetStringAsync(Source.AbsoluteUri);
                 LoadingVisible = Visibility.Collapsed;
-               
+                XElement document = XElement.Parse(resString).Element("channel");
+                Title = document.Element("title").Value;
+                IEnumerable<XElement> items = document.Descendants("item");
+                Entries.Clear();
+                foreach(XElement item in items)
+                {
+                    DateTime dt = DateTime.ParseExact(item.Element("pubDate").Value, RFC822, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None);
+                    string title = Regex.Replace(item.Element("title").Value, "<.*?>", String.Empty);
+                    string description = Regex.Replace(item.Element("description").Value, "<.*?>", String.Empty);
+                    Entries.Add(new NewsControlEntry(title, description, new Uri(item.Element("link").Value), dt));
+                }
             }
             catch
             {

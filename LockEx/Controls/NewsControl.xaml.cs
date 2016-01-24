@@ -7,6 +7,9 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
+using Windows.System;
+using Windows.Phone.System;
 
 namespace LockEx.Controls
 {
@@ -19,7 +22,8 @@ namespace LockEx.Controls
 
         private void stackPanel_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-
+           //SystemProtection.RequestScreenUnlock();
+           Launcher.LaunchUriAsync((Uri)((StackPanel)sender).Tag);
         }
     }
 }
