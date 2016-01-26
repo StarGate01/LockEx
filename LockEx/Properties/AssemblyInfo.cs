@@ -6,11 +6,11 @@ using System.Resources;
 // Allgemeine Informationen über eine Assembly werden über die folgende 
 // Attributgruppe gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("LockEx")]
+[assembly: AssemblyTitle("Midnight Lockscreen")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Christoph Honal")]
-[assembly: AssemblyProduct("LockEx")]
+[assembly: AssemblyProduct("Midnight Lockscreen")]
 [assembly: AssemblyCopyright("Copyright © Christoph Honal 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -26,7 +26,7 @@
         d:DataContext="{d:DesignInstance Type=model:MainView, IsDesignTimeCreatable=True}">
         <phone:Pivot Title="{Binding Path=LocalizedResources.SettingTitle, Source={StaticResource LocalizedStrings}}">
 
-            <phone:PivotItem Header="LockEx">
+            <phone:PivotItem Header="Midnight">
                 <Grid>
                     <toolkit:ToggleSwitch IsChecked="{Binding IsLockscreen, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingLockscreen, Source={StaticResource LocalizedStrings}}" Margin="0,-16,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
                     <!--<toolkit:ToggleSwitch IsChecked="{Binding GlanceEnabled, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingGlance, Source={StaticResource LocalizedStrings}}" Margin="0,44,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
@@ -35,9 +35,9 @@
                     <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.SecondsVisibleBool, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingDisplaySeconds, Source={StaticResource LocalizedStrings}}" Margin="0,101,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
                     <toolkit:ToggleSwitch IsChecked="{Binding FlashlightVisibleBool, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingShowFlashlight, Source={StaticResource LocalizedStrings}}" Margin="0,161,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
                     <TextBlock HorizontalAlignment="Left" Margin="10,253,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLeftControl, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
-                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LeftControlsStrings, Mode=TwoWay}" SelectedIndex="{Binding LeftControl, Converter={StaticResource leftControlsIntConverter}, Mode=TwoWay}" Margin="10,296,10,289" />
+                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LeftControlsStrings, Mode=TwoWay}" SelectedIndex="{Binding LeftControl, Converter={StaticResource leftControlsIntConverter}, Mode=TwoWay}" Margin="10,296,10,240" />
                     <TextBlock HorizontalAlignment="Left" Margin="10,391,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLongTextMode, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light" />
-                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LongTextModesStrings, Mode=TwoWay}" SelectedIndex="{Binding LongTextMode, Converter={StaticResource longTextModesIntConverter}, Mode=TwoWay}" Margin="10,434,10,154" />
+                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LongTextModesStrings, Mode=TwoWay}" SelectedIndex="{Binding LongTextMode, Converter={StaticResource longTextModesIntConverter}, Mode=TwoWay}" Margin="10,434,10,102" />
                 </Grid>
             </phone:PivotItem>
 

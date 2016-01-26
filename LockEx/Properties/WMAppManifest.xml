@@ -6,7 +6,7 @@
     <Language code="en-US" />
   </Languages>
   <!-- HubType="268435456" -->
-  <App xmlns="" ProductID="{74bb9628-1740-4ccc-9efd-6bd8f12fd300}" Title="LockEx" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Christoph Honal" Description="Lockscreen" SDOptOut="false" BackUpOptOut="false" Publisher="LockEx" PublisherID="{0470670f-e782-4fec-85a5-de0b180c95b9}">
+  <App xmlns="" ProductID="{74bb9628-1740-4ccc-9efd-6bd8f12fd300}" Title="Midnight Lockscreen" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Christoph Honal" Description="Midnight Lockscreen" SDOptOut="false" BackUpOptOut="false" Publisher="Christoph Honal" PublisherID="{0470670f-e782-4fec-85a5-de0b180c95b9}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -17,39 +17,6 @@
       <Capability Name="ID_CAP_SHELL_DEVICE_LOCK_UI_API" />
       <Capability Name="ID_CAP_CHAMBER_PROFILE_CODE_RW" />
       <Capability Name="ID_CAP_CAMERA"/>
-      <!--<Capability Name="ID_CAP_BUILTIN_TCB"/>
-      <Capability Name="ID_CAP_BUILTIN_SYMBOLICLINK"/>
-      <Capability Name="ID_CAP_BUILTIN_PROFILE"/>
-      <Capability Name="ID_CAP_FOREGROUND_TASK_MANAGER"/>
-      <Capability Name="ID_CAP_BACKGROUND_WORKER"/>
-      <Capability Name="ID_CAP_BACKGROUND_EXECUTION_MANAGEMENT"/>
-      <Capability Name="ID_CAP_PM_1ST_PARTY"/>
-      <Capability Name="ID_CAP_CREATE_PROCESS_IN_CHAMBER"/>
-      <Capability Name="ID_CAP_MAP" />
-      <Capability Name="ID_CAP_MEDIALIB_PHOTO" />
-      <Capability Name="ID_CAP_MEDIALIB_PHOTO_FULL" />
-      <Capability Name="ID_CAP_INTEROPSERVICES" />
-      <Capability Name="ID_CAP_DEVICE_MANAGEMENT_SECURITY_POLICIES" />
-      <Capability Name="ID_CAP_DEVICE_MANAGEMENT_ADMIN" />
-      <Capability Name="ID_CAP_OEM_DEPLOYMENT" />
-      <Capability Name="ID_CAP_CSP_FOUNDATION" />
-      <Capability Name="ID_CAP_CSP_OEM" />
-      <Capability Name="ID_CAP_CSP_W4_APPLICATION" />
-      <Capability Name="ID_CAP_INTERNET_EXPLORER_SEARCH_PROVIDER_KEYS_HKCU" />
-      <Capability Name="ID_CAP_REMOVABLE_STORAGE" />
-      <Capability Name="ID_CAP_PUSH_NOTIFICATION" />
-      <Capability Name="ID_CAP_OEMPUBLICDIRECTORY" />
-      <Capability Name="ID_CAP_PUBLIC_FOLDER_FULL" />
-      <Capability Name="ID_CAP_OFFICE_LAUNCH_URL" />
-      <Capability Name="ID_CAP_STORAGE_MANAGEMENT" />
-      <Capability Name="ID_CAP_CHAMBER_PROFILE_DATA_RW" />
-      <Capability Name="ID_CAP_CHAMBER_PROFILE_CODE_RW" />
-      <Capability Name="ID_CAP_INTERNET_EXPLORER_HKCU_WRITE" />
-      <Capability Name="ID_CAP_PM_INSTALL" />
-      <Capability Name="ID_CAP_PM_BSS" />
-      <Capability Name="ID_CAP_PM_1ST_PARTY" />
-      <Capability Name="ID_CAP_DEVELOPERUNLOCK_API" />
-      <Capability Name="ID_CAP_ICS_RW" />-->
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" ActivationPolicy="Resume" />
