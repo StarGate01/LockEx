@@ -1,4 +1,6 @@
-# LockEx
+# Midnight Lockscreen (formerly LockEx)
+
+&nbsp;
 
 **An extended lockscreen app and library for Windows Phone 8.1**
 
