@@ -6,7 +6,11 @@ HRESULT Shell_TurnScreenOn(
 	_In_ BOOL bOn
 );
 
-HRESULT WINAPI Shell_InitReminders(
+INT Shell_GetCurrentMode(
+	VOID
+);
+
+/*HRESULT WINAPI Shell_InitReminders(
 	_Out_ INT* pRPCHandle
 );
 
@@ -35,4 +39,4 @@ HRESULT Shell_GetReminderData(
 
 HRESULT Shell_ReleaseReminderData(
 	VOID
-);
+);*/

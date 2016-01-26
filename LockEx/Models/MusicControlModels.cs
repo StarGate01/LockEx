@@ -10,6 +10,7 @@ using System.Windows.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using System.Windows.Threading;
+using Windows.Phone.System;
 
 namespace LockEx.Models.MusicControl
 {
@@ -27,7 +28,11 @@ namespace LockEx.Models.MusicControl
             FrameworkDispatcher.Update();
         }
 
-        void frameworkDispatcherTimer_Tick(object sender, EventArgs e) { FrameworkDispatcher.Update(); }
+        void frameworkDispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (!SystemProtection.ScreenLocked) return;
+            FrameworkDispatcher.Update();
+        }
 
         void IApplicationService.StartService(ApplicationServiceContext context) { this.frameworkDispatcherTimer.Start(); }
 

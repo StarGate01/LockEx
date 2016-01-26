@@ -97,6 +97,15 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die true ähnelt.
+        /// </summary>
+        public static string DefaultGlance {
+            get {
+                return ResourceManager.GetString("DefaultGlance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die 24 ähnelt.
         /// </summary>
         public static string DefaultHourFormat {
@@ -250,6 +259,33 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hintergrundbild konnte nicht geändert werden! ähnelt.
+        /// </summary>
+        public static string SettingBackgroundError {
+            get {
+                return ResourceManager.GetString("SettingBackgroundError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hintergrundbild wurde erfolgreich geändert. ähnelt.
+        /// </summary>
+        public static string SettingBackgroundSuccess {
+            get {
+                return ResourceManager.GetString("SettingBackgroundSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bild auswählen... ähnelt.
+        /// </summary>
+        public static string SettingChooseImage {
+            get {
+                return ResourceManager.GetString("SettingChooseImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Wetter anzeigen für ähnelt.
         /// </summary>
         public static string SettingCity {
@@ -268,11 +304,29 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die &quot;Glance&quot; aktivieren ähnelt.
+        /// </summary>
+        public static string SettingGlance {
+            get {
+                return ResourceManager.GetString("SettingGlance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die 12-Stunden Format ähnelt.
         /// </summary>
         public static string SettingHourFormat {
             get {
                 return ResourceManager.GetString("SettingHourFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hinweis: Dieses Bild wird auch als Hintergrundbild für den regulären Sperrbildschirm festgelegt. ähnelt.
+        /// </summary>
+        public static string SettingImageNote {
+            get {
+                return ResourceManager.GetString("SettingImageNote", resourceCulture);
             }
         }
         
@@ -313,6 +367,15 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bild zurücksetzen ähnelt.
+        /// </summary>
+        public static string SettingResetImage {
+            get {
+                return ResourceManager.GetString("SettingResetImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Über ähnelt.
         /// </summary>
         public static string SettingsAbout {
@@ -322,7 +385,7 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Als Hintergrund ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hintergrund ähnelt.
         /// </summary>
         public static string SettingsBackground {
             get {
@@ -336,6 +399,15 @@ namespace LockEx.Resources {
         public static string SettingShowFlashlight {
             get {
                 return ResourceManager.GetString("SettingShowFlashlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Linke Seite ähnelt.
+        /// </summary>
+        public static string SettingsLeft {
+            get {
+                return ResourceManager.GetString("SettingsLeft", resourceCulture);
             }
         }
         

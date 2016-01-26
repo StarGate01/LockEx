@@ -18,7 +18,7 @@
 
     <Grid x:Name="LayoutRoot" Background="Black" CacheMode="BitmapCache"
 		d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=model:MainView}" 
-		RenderTransformOrigin="0.5,0.5">
+		RenderTransformOrigin="0.5,0.5" Margin="0,0,0,-2">
         <Grid.RenderTransform>
 			<CompositeTransform x:Name="GlobalYO" TranslateY="{Binding GlobalYOffset}"/>
 		</Grid.RenderTransform>

@@ -183,9 +183,6 @@
   <data name="SettingLongTextMode" xml:space="preserve">
     <value>Langer-Text Modus</value>
   </data>
-  <data name="SettingsBackground" xml:space="preserve">
-    <value>Als Hintergrund</value>
-  </data>
   <data name="SettingTempSuffix" xml:space="preserve">
     <value>Temperatur anzeigen in</value>
   </data>
@@ -231,11 +228,23 @@
   <data name="SettingShowFlashlight" xml:space="preserve">
     <value>Taschenlampe</value>
   </data>
+  <data name="DefaultGlance" xml:space="preserve">
+    <value>true</value>
+  </data>
   <data name="DefaultLeftControl" xml:space="preserve">
     <value>W</value>
   </data>
   <data name="DefaultNewsSource" xml:space="preserve">
     <value>http://news.wpvision.de/feed/</value>
+  </data>
+  <data name="SettingChooseImage" xml:space="preserve">
+    <value>Bild auswählen...</value>
+  </data>
+  <data name="SettingGlance" xml:space="preserve">
+    <value>"Glance" aktivieren</value>
+  </data>
+  <data name="SettingImageNote" xml:space="preserve">
+    <value>Hinweis: Dieses Bild wird auch als Hintergrundbild für den regulären Sperrbildschirm festgelegt.</value>
   </data>
   <data name="SettingLeftControl" xml:space="preserve">
     <value>Linke Seite</value>
@@ -243,13 +252,28 @@
   <data name="SettingNewsSource" xml:space="preserve">
     <value>Nachrichten-Feed (RSS)</value>
   </data>
+  <data name="SettingResetImage" xml:space="preserve">
+    <value>Bild zurücksetzen</value>
+  </data>
   <data name="SettingsAbout" xml:space="preserve">
     <value>Über</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>Hintergrund</value>
+  </data>
+  <data name="SettingsLeft" xml:space="preserve">
+    <value>Linke Seite</value>
   </data>
   <data name="SettingsNews" xml:space="preserve">
     <value>Nachrichten</value>
   </data>
   <data name="SettingsWeather" xml:space="preserve">
     <value>Wetter</value>
+  </data>
+  <data name="SettingBackgroundError" xml:space="preserve">
+    <value>Hintergrundbild konnte nicht geändert werden!</value>
+  </data>
+  <data name="SettingBackgroundSuccess" xml:space="preserve">
+    <value>Hintergrundbild wurde erfolgreich geändert.</value>
   </data>
 </root>

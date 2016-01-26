@@ -29,6 +29,11 @@ void NativeAPI::TurnScreenOn(Boolean state)
 	Shell_TurnScreenOn(state);
 }
 
+int NativeAPI::GetCurrentMode()
+{
+	return Shell_GetCurrentMode();
+}
+
 /*void NativeAPI::TestReminders()
 {
 	INT r0 = 0;

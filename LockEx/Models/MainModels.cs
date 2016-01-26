@@ -22,6 +22,7 @@ using LockEx.Hardware;
 using RTComponent;
 using RTComponent.NotificationsSnapshot;
 using System.Windows.Data;
+using Windows.Phone.System;
 
 namespace LockEx.Models.Main
 {
@@ -33,7 +34,6 @@ namespace LockEx.Models.Main
         {
             WeatherControl, NewsControl
         }
-
         public enum LongTextModes
         {
             Always, Never, Auto
@@ -70,6 +70,15 @@ namespace LockEx.Models.Main
         };
 
         #endregion
+
+        private DispatcherTimer _secondsTimer;
+        public DispatcherTimer SecondsTimer
+        {
+            get
+            {
+                return _secondsTimer;
+            }
+        }
 
         private WeatherControlView _weatherView;
         public WeatherControlView WeatherView
@@ -154,11 +163,19 @@ namespace LockEx.Models.Main
         {
             get
             {
-                return _imageUri;
+                if (DesignerProperties.IsInDesignTool) return _imageUri;
+                return (IsolatedStorageSettings.ApplicationSettings.Contains("ImageUri")) ?
+                   new Uri((string)IsolatedStorageSettings.ApplicationSettings["ImageUri"]) :
+                   defaultImageUri;
             }
             set
             {
                 _imageUri = value;
+                if (!DesignerProperties.IsInDesignTool)
+                {
+                    IsolatedStorageSettings.ApplicationSettings["ImageUri"] = value.AbsolutePath;
+                    IsolatedStorageSettings.ApplicationSettings.Save();
+                }
                 RaisePropertyChanged("ImageUri");
             }
         }
@@ -183,36 +200,6 @@ namespace LockEx.Models.Main
                     ExtensibilityApp.UnregisterLockScreenApplication();
                     RaisePropertyChanged("IsLockscreen");
                 }
-            }
-        }
-        private bool _isBackground;
-        public bool IsBackground
-        {
-            get
-            {
-                if (DesignerProperties.IsInDesignTool) return _isBackground;
-                return LockScreenManager.IsProvidedByCurrentApplication;
-            }
-            set
-            {
-                if (DesignerProperties.IsInDesignTool) _isBackground = value;
-                else if (value) new Task(async () =>
-                {
-                    try
-                    {
-                        LockScreenRequestResult res = await LockScreenManager.RequestAccessAsync();
-                        if (res == LockScreenRequestResult.Granted)
-                        {
-                            Uri fileUri = new Uri("ms-appx:///" + ImageUri, UriKind.Absolute);
-                            LockScreen.SetImageUri(fileUri);
-                            Deployment.Current.Dispatcher.BeginInvoke(() =>
-                            {
-                                RaisePropertyChanged("IsBackground");
-                            });
-                        }
-                    }
-                    catch { }
-                }).Start();
             }
         }
         private LongTextModes _longTextMode;
@@ -378,6 +365,27 @@ namespace LockEx.Models.Main
                 return LeftControl == LeftControls.NewsControl ? Visibility.Visible : Visibility.Collapsed;
             }
         }
+        private bool _glanceEnabled;
+        public bool GlanceEnabled
+        {
+            get
+            {
+                if (DesignerProperties.IsInDesignTool) return _glanceEnabled;
+                return (IsolatedStorageSettings.ApplicationSettings.Contains("GlanceEnabled")) ?
+                    (Convert.ToBoolean(IsolatedStorageSettings.ApplicationSettings["GlanceEnabled"])) :
+                    (Convert.ToBoolean(AppResources.DefaultGlance));
+            }
+            set
+            {
+                _glanceEnabled = value;
+                if (!DesignerProperties.IsInDesignTool)
+                {
+                    IsolatedStorageSettings.ApplicationSettings["GlanceEnabled"] = value.ToString();
+                    IsolatedStorageSettings.ApplicationSettings.Save();
+                }
+                RaisePropertyChanged("GlanceEnabled");
+            }
+        }
 
         private Array _leftControlsStrings = Enum.GetValues(typeof(LeftControls));
         public Array LeftControlsStrings
@@ -416,6 +424,9 @@ namespace LockEx.Models.Main
                 NAPI = new NativeAPI();
                 var cont = Application.Current.Host.Content;
                 NAPI.InitUIXMAResources((int)Math.Ceiling(cont.ActualWidth * cont.ScaleFactor * 0.01), (int)Math.Ceiling(cont.ActualHeight * cont.ScaleFactor * 0.01));
+                _secondsTimer = new DispatcherTimer();
+                _secondsTimer.Interval = new TimeSpan(0, 0, 1);
+                _secondsTimer.Tick += secondsTimer_Tick;
             }
             else
             {
@@ -428,19 +439,32 @@ namespace LockEx.Models.Main
                     RaisePropertyChanged("RightPanelRowSpan");
                 }
             };
-            Flashlight.PropertyChanged += (object sender, PropertyChangedEventArgs e) => { if (e.PropertyName == "IsTurnedOn") RaisePropertyChanged("FlashlightImageUri"); };
+            Flashlight.PropertyChanged += (object sender, PropertyChangedEventArgs e) => {
+                if (e.PropertyName == "IsTurnedOn")
+                {
+                    RaisePropertyChanged("FlashlightImageUri");
+                }
+            };
+        }
+
+        void secondsTimer_Tick(object sender, EventArgs e)
+        {
+            if (!SystemProtection.ScreenLocked) return;
+            DateTimeView.Value = DateTime.Now;
+            PopulateShellChromeData();
+            MusicView.RaisePropertyChanged("Position");
         }
 
         public void PopulateDesignerData()
         {
             _imageUri = defaultImageUri;
             _isLockscreen = true;
-            _isBackground = true;
             _longTextMode = LongTextModes.Auto;
             _globalYOffset = 0;
             _flashlightVisibleBool = true;
             _flashlight.IsTurnedOn = true;
             _leftControl = LeftControls.NewsControl;
+            _glanceEnabled = true;
             WeatherView.Entries = new ObservableCollection<WeatherControlEntry>()
             {
                 new WeatherControlEntry(DateTime.Today, WeatherControlEntry.WeatherStates.Clear, "Klarer Himmel", 20.4, 30.6),
@@ -494,13 +518,6 @@ durch die Hilfe einer Gruppe lokaler Kinderdedektive unter der Führung eines ge
             NewsView.LoadingVisible = Visibility.Collapsed;
             NewsView.Source = new Uri("http://www.example.com");
             NewsView.Title = "Ernsthafte Nachrichten.de";
-        }
-
-        public void PopulateData()
-        {
-            if (IsolatedStorageSettings.ApplicationSettings.Contains("CustomImage"))
-                _imageUri = (Uri)IsolatedStorageSettings.ApplicationSettings["CustomImage"];
-            else _imageUri = defaultImageUri;
         }
 
         public void PopulateShellChromeData()
@@ -582,7 +599,7 @@ durch die Hilfe einer Gruppe lokaler Kinderdedektive unter der Führung eines ge
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged(string propertyName)
+        public void RaisePropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }

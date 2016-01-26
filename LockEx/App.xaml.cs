@@ -29,7 +29,6 @@ namespace LockEx
             InitializeLanguage();
             MainViewModel = new MainView();
             RootFrame.DataContext = MainViewModel;
-            MainViewModel.PopulateData();
             if (Debugger.IsAttached)
             {
                 //Application.Current.Host.Settings.EnableFrameRateCounter = true;
@@ -47,15 +46,17 @@ namespace LockEx
 
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            MainViewModel.SecondsTimer.Start();
         }
 
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+           MainViewModel.SecondsTimer.Stop();
         }
 
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
-            MainViewModel.Dispose();
+           // MainViewModel.Dispose();
         }
 
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)

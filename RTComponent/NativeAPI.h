@@ -55,6 +55,7 @@ namespace RTComponent
 		NativeAPI();
 		void InitUIXMAResources(int resWidth, int resHeight);
 		void TurnScreenOn(bool state);
+		int GetCurrentMode();
 		NotificationsSnapshot::Snapshot^ GetNotificationsSnapshot();
 		Array<uint8>^ GetUIXMAResource(String^ name);		
 

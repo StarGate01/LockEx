@@ -20,21 +20,16 @@ namespace LockEx
     public partial class MainPage : PhoneApplicationPage
     {
 
-        private DispatcherTimer secondsTimer;
-
         private bool swipeComplete = false;
 
         public MainPage()
         {
             InitializeComponent();
-            secondsTimer = new DispatcherTimer();
-            secondsTimer.Interval = new TimeSpan(0, 0, 1);
-            secondsTimer.Tick += secondsTimer_Tick;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!SystemProtection.ScreenLocked)// && false)
+            if (!SystemProtection.ScreenLocked)
             {
                 NavigationService.Navigate(new Uri("/ExtendedSettingsPage.xaml", UriKind.Relative));
                 base.OnNavigatedTo(e);
@@ -50,7 +45,6 @@ namespace LockEx
                     App.MainViewModel.WeatherView.PopulateData();
                     break;
             }
-            secondsTimer.Start();
             App.MainViewModel.GlobalYOffset = 0;
             base.OnNavigatedTo(e);
         }
@@ -60,13 +54,6 @@ namespace LockEx
             ExtensibilityApp.EndUnlock();
             MainSnapBack.Begin();
             e.Cancel = true;
-        }
-
-        private void secondsTimer_Tick(object sender, EventArgs e)
-        {
-            App.MainViewModel.DateTimeView.Value = DateTime.Now;
-            App.MainViewModel.PopulateShellChromeData();
-            App.MainViewModel.MusicView.RaisePropertyChanged("Position");
         }
 
         private void ButtonUnlock_ManipulationStarted(object sender, System.Windows.Input.ManipulationStartedEventArgs e)
