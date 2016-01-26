@@ -124,7 +124,7 @@
     <value>clear</value>
   </data>
   <data name="DefaultCity" xml:space="preserve">
-    <value>London</value>
+    <value>London,gb</value>
   </data>
   <data name="DefaultHourFormat" xml:space="preserve">
     <value>12</value>

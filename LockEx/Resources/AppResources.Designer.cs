@@ -79,7 +79,7 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Berlin ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Berlin,de ähnelt.
         /// </summary>
         public static string DefaultCity {
             get {
