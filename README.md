@@ -1,7 +1,5 @@
 # Midnight Lockscreen (formerly LockEx)
 
-&nbsp;
-
 **An extended lockscreen app and library for Windows Phone 8.1**
 
 **RTComponent** is a Windows Runtime Component wrapper for ```ShellChromeAPI.dll#Shell_LockScreen_GetNotificationsSnapshot```, and also loads icons from ```UIXMobileAssets{ScreenResolution}.dll```. It is tested and probably stable.
