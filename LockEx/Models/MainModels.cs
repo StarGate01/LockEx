@@ -27,7 +27,7 @@ using Windows.Phone.System;
 namespace LockEx.Models.Main
 {
 
-    public class MainView : INotifyPropertyChanged, IDisposable
+    public class MainView : INotifyPropertyChanged
     {
 
         public enum LeftControls
@@ -607,11 +607,6 @@ durch die Hilfe einer Gruppe lokaler Kinderdedektive unter der Führung eines ge
         {
             MainView copy = (MainView)this.MemberwiseClone();
             return copy;
-        }
-
-        public void Dispose()
-        {
-            _flashlight.Dispose();
         }
 
     }

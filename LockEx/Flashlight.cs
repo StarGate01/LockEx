@@ -14,31 +14,36 @@ namespace LockEx.Hardware
 {
 
     //Thanks to http://stackoverflow.com/questions/24847510/toggle-flashlight-in-windows-phone-8-1
-    public class Flashlight : IDisposable, INotifyPropertyChanged
+    public class Flashlight : INotifyPropertyChanged
     {
 
         private MediaCapture captureManager;
         private TorchControl torch;
 
-        public Flashlight()
+        public async Task InitCamera()
         {
-            if (DesignerProperties.IsInDesignTool) return;
-            new Task(async () =>
+            var cameraID = await GetCameraID(Windows.Devices.Enumeration.Panel.Back);
+            captureManager = new MediaCapture();
+            await captureManager.InitializeAsync(new MediaCaptureInitializationSettings
             {
-                var cameraID = await GetCameraID(Windows.Devices.Enumeration.Panel.Back);
-                captureManager = new MediaCapture();
-                await captureManager.InitializeAsync(new MediaCaptureInitializationSettings
-                {
-                    StreamingCaptureMode = StreamingCaptureMode.Video,
-                    PhotoCaptureSource = PhotoCaptureSource.VideoPreview,
-                    AudioDeviceId = string.Empty,
-                    VideoDeviceId = cameraID.Id
-                });
-                torch = captureManager.VideoDeviceController.TorchControl;
-            }).Start();
+                StreamingCaptureMode = StreamingCaptureMode.Video,
+                PhotoCaptureSource = PhotoCaptureSource.VideoPreview,
+                AudioDeviceId = string.Empty,
+                VideoDeviceId = cameraID.Id
+            });
+            torch = captureManager.VideoDeviceController.TorchControl;
+            RaisePropertyChanged("IsTurnedOn");
         }
 
-        private static async Task<DeviceInformation> GetCameraID(Panel desiredCamera)
+        public void UnInitCamera()
+        {
+            torch = null;
+            if(captureManager!= null) captureManager.Dispose();
+            captureManager = null;
+            RaisePropertyChanged("IsTurnedOn");
+        }
+
+        private async Task<DeviceInformation> GetCameraID(Panel desiredCamera)
         {
             DeviceInformation deviceID = (await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture))
                 .FirstOrDefault(x => x.EnclosureLocation != null && x.EnclosureLocation.Panel == desiredCamera);
@@ -52,19 +57,14 @@ namespace LockEx.Hardware
             get
             {
                 if (DesignerProperties.IsInDesignTool) return _isTurnedOn;
-                return torch.Enabled;
+                return torch != null && torch.Enabled;
             }
             set
             {
                 _isTurnedOn = value;
-                if (!DesignerProperties.IsInDesignTool) torch.Enabled = value;
+                if (!DesignerProperties.IsInDesignTool && torch != null && torch.Supported) torch.Enabled = value;
                 RaisePropertyChanged("IsTurnedOn");
             }
-        }
-
-        public void Dispose()
-        {
-            captureManager.Dispose();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

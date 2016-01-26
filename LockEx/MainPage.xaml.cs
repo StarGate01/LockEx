@@ -13,6 +13,7 @@ using Microsoft.Phone.BackgroundAudio;
 using System.Windows.Media;
 using System.Threading.Tasks;
 using LockEx.Models.Main;
+using LockEx.Hardware;
 
 namespace LockEx
 {
@@ -35,6 +36,8 @@ namespace LockEx
                 base.OnNavigatedTo(e);
                 return;
             }
+            App.MainViewModel.Flashlight.InitCamera();
+            if (!App.MainViewModel.SecondsTimer.IsEnabled) App.MainViewModel.SecondsTimer.Start();
             App.MainViewModel.PopulateShellChromeData();
             switch (App.MainViewModel.LeftControl)
             {
@@ -47,6 +50,13 @@ namespace LockEx
             }
             App.MainViewModel.GlobalYOffset = 0;
             base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            App.MainViewModel.Flashlight.UnInitCamera();
+            App.MainViewModel.SecondsTimer.Stop();
+            base.OnNavigatingFrom(e);
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
