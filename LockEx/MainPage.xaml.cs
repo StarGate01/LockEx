@@ -30,14 +30,14 @@ namespace LockEx
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!SystemProtection.ScreenLocked)
+            if (!SystemProtection.ScreenLocked && false)
             {
                 NavigationService.Navigate(new Uri("/ExtendedSettingsPage.xaml", UriKind.Relative));
                 base.OnNavigatedTo(e);
                 return;
             }
             App.MainViewModel.Flashlight.InitCamera();
-            if (!App.MainViewModel.SecondsTimer.IsEnabled) App.MainViewModel.SecondsTimer.Start();
+            App.MainViewModel.SecondsTimer.Start();
             App.MainViewModel.PopulateShellChromeData();
             switch (App.MainViewModel.LeftControl)
             {
@@ -45,9 +45,11 @@ namespace LockEx
                     App.MainViewModel.NewsView.PopulateData();
                     break;
                 case MainView.LeftControls.WeatherControl:
+                    App.MainViewModel.MusicView.XNAFrameworkDispatcher.Start();
                     App.MainViewModel.WeatherView.PopulateData();
                     break;
             }
+            //if (App.MainViewModel.GlanceEnabled) App.MainViewModel.Glance.UpdateSensor.Start();
             App.MainViewModel.GlobalYOffset = 0;
             base.OnNavigatedTo(e);
         }
@@ -56,6 +58,8 @@ namespace LockEx
         {
             App.MainViewModel.Flashlight.UnInitCamera();
             App.MainViewModel.SecondsTimer.Stop();
+            App.MainViewModel.MusicView.XNAFrameworkDispatcher.Stop();
+            //App.MainViewModel.Glance.UpdateSensor.Stop();
             base.OnNavigatingFrom(e);
         }
 

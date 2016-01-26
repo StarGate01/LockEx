@@ -25,18 +25,19 @@
     <Grid x:Name="LayoutRoot" Background="Transparent"
         d:DataContext="{d:DesignInstance Type=model:MainView, IsDesignTimeCreatable=True}">
         <phone:Pivot Title="{Binding Path=LocalizedResources.SettingTitle, Source={StaticResource LocalizedStrings}}">
-            
+
             <phone:PivotItem Header="LockEx">
                 <Grid>
                     <toolkit:ToggleSwitch IsChecked="{Binding IsLockscreen, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingLockscreen, Source={StaticResource LocalizedStrings}}" Margin="0,-16,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding GlanceEnabled, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingGlance, Source={StaticResource LocalizedStrings}}" Margin="0,44,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.HourFormatIs12, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingHourFormat, Source={StaticResource LocalizedStrings}}" Margin="0,104,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.SecondsVisibleBool, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingDisplaySeconds, Source={StaticResource LocalizedStrings}}" Margin="0,164,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <toolkit:ToggleSwitch IsChecked="{Binding FlashlightVisibleBool, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingShowFlashlight, Source={StaticResource LocalizedStrings}}" Margin="0,224,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <TextBlock HorizontalAlignment="Left" Margin="10,316,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLeftControl, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
-                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LeftControlsStrings, Mode=TwoWay}" SelectedIndex="{Binding LeftControl, Converter={StaticResource leftControlsIntConverter}, Mode=TwoWay}" Margin="10,359,10,226" />
-                    <TextBlock HorizontalAlignment="Left" Margin="10,454,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLongTextMode, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light" />
-                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LongTextModesStrings, Mode=TwoWay}" SelectedIndex="{Binding LongTextMode, Converter={StaticResource longTextModesIntConverter}, Mode=TwoWay}" Margin="10,497,10,91" />
+                    <!--<toolkit:ToggleSwitch IsChecked="{Binding GlanceEnabled, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingGlance, Source={StaticResource LocalizedStrings}}" Margin="0,44,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <Slider Value="{Binding Glance.Dark, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="456" Height="86" Maximum="25"/>-->
+                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.HourFormatIs12, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingHourFormat, Source={StaticResource LocalizedStrings}}" Margin="0,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding DateTimeView.SecondsVisibleBool, Mode=TwoWay}" Content="{Binding Path=LocalizedResources.SettingDisplaySeconds, Source={StaticResource LocalizedStrings}}" Margin="0,101,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <toolkit:ToggleSwitch IsChecked="{Binding FlashlightVisibleBool, Mode=TwoWay}" Content="{Binding LocalizedResources.SettingShowFlashlight, Source={StaticResource LocalizedStrings}}" Margin="0,161,0,0" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <TextBlock HorizontalAlignment="Left" Margin="10,253,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLeftControl, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light"/>
+                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LeftControlsStrings, Mode=TwoWay}" SelectedIndex="{Binding LeftControl, Converter={StaticResource leftControlsIntConverter}, Mode=TwoWay}" Margin="10,296,10,289" />
+                    <TextBlock HorizontalAlignment="Left" Margin="10,391,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.SettingLongTextMode, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light" />
+                    <toolkit:ListPicker FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}" ExpansionMode="FullScreenOnly" ItemsSource="{Binding LongTextModesStrings, Mode=TwoWay}" SelectedIndex="{Binding LongTextMode, Converter={StaticResource longTextModesIntConverter}, Mode=TwoWay}" Margin="10,434,10,154" />
                 </Grid>
             </phone:PivotItem>
 
@@ -57,6 +58,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -72,17 +75,19 @@
                     </Border>
                     <Button Click="ButtonChooseImage_Click" x:Name="ButtonChooseImage" Content="{Binding Path=LocalizedResources.SettingChooseImage, Source={StaticResource LocalizedStrings}}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Button Click="ButtonResetImage_Click" x:Name="ButtonResetImage" Content="{Binding Path=LocalizedResources.SettingResetImage, Source={StaticResource LocalizedStrings}}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.SettingImageNote, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top"/>
+                    <Button Click="ButtonSetImage_Click"  x:Name="ButtonSetImage" Content="{Binding Path=LocalizedResources.SettingAsSystemBackground, Source={StaticResource LocalizedStrings}}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Click="ButtonOpenSystem_Click"  x:Name="ButtonOpenSystem" Content="{Binding Path=LocalizedResources.SettingOpenSystemLock, Source={StaticResource LocalizedStrings}}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.SettingImageNote, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top"/>
                 </Grid>
             </phone:PivotItem>
 
             <phone:PivotItem Header="{Binding Path=LocalizedResources.SettingsAbout, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="Christoph Honal, 2016&#13;Version Alpha 0.0.3&#13;&#13;Thanks to wpvision.de and xda&#x2011;developers.com&#13;" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light" />
+                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="Christoph Honal, 2016&#13;Version Beta 0.1&#13;&#13;Thanks to wpvision.de and xda&#x2011;developers.com&#13;" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe WP Light" />
                     <HyperlinkButton HorizontalAlignment="Left" Click="HyperlinkButton_Click" Tag="https://github.com/StarGate01/LockEx" Margin="0,255,0,352" FontSize="32" FontFamily="Segoe WP SemiLight">LockEx GitHub</HyperlinkButton>
                 </Grid>
             </phone:PivotItem>
-       
+
         </phone:Pivot>
     </Grid>
 

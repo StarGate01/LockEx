@@ -13,7 +13,6 @@ using System.ComponentModel;
 namespace LockEx.Hardware
 {
 
-    //Thanks to http://stackoverflow.com/questions/24847510/toggle-flashlight-in-windows-phone-8-1
     public class Flashlight : INotifyPropertyChanged
     {
 

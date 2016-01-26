@@ -64,7 +64,7 @@
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
-        <s:XNAFrameworkDispatcherService />
+        <!-- <s:XNAFrameworkDispatcherService />-->
         <!--Erforderliches Objekt, das Lebensdauerereignisse der Anwendung behandelt-->
         <shell:PhoneApplicationService
             Launching="Application_Launching" Closing="Application_Closing"

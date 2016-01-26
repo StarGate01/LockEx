@@ -244,7 +244,7 @@
     <value>"Glance" aktivieren</value>
   </data>
   <data name="SettingImageNote" xml:space="preserve">
-    <value>Hinweis: Dieses Bild wird auch als Hintergrundbild für den regulären Sperrbildschirm festgelegt.</value>
+    <value>Hinweis: Dieses Bild kann auch als Hintergrundbild für den regulären Sperrbildschirm gesetzt werden. Danach muss die App neu als Sperrbildschirm-App festgelegt werden.</value>
   </data>
   <data name="SettingLeftControl" xml:space="preserve">
     <value>Linke Seite</value>
@@ -275,5 +275,11 @@
   </data>
   <data name="SettingBackgroundSuccess" xml:space="preserve">
     <value>Hintergrundbild wurde erfolgreich geändert.</value>
+  </data>
+  <data name="SettingAsSystemBackground" xml:space="preserve">
+    <value>Als Systemhintergrund</value>
+  </data>
+  <data name="SettingOpenSystemLock" xml:space="preserve">
+    <value>Systemeinstellungen öffnen</value>
   </data>
 </root>

@@ -50,7 +50,7 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="9" Stretch="UniformToFill">
+			<Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="10" Stretch="UniformToFill">
 				<Image.Source>
                     <BitmapImage UriSource="{Binding ImageUri}" />
 				</Image.Source>

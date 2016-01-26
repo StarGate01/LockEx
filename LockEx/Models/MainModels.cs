@@ -23,6 +23,7 @@ using RTComponent;
 using RTComponent.NotificationsSnapshot;
 using System.Windows.Data;
 using Windows.Phone.System;
+using System.Diagnostics;
 
 namespace LockEx.Models.Main
 {
@@ -166,7 +167,7 @@ namespace LockEx.Models.Main
                 if (DesignerProperties.IsInDesignTool) return _imageUri;
                 return (IsolatedStorageSettings.ApplicationSettings.Contains("ImageUri")) ?
                    new Uri((string)IsolatedStorageSettings.ApplicationSettings["ImageUri"]) :
-                   defaultImageUri;
+                   DefaultImageUri;
             }
             set
             {
@@ -365,7 +366,7 @@ namespace LockEx.Models.Main
                 return LeftControl == LeftControls.NewsControl ? Visibility.Visible : Visibility.Collapsed;
             }
         }
-        private bool _glanceEnabled;
+        /*private bool _glanceEnabled;
         public bool GlanceEnabled
         {
             get
@@ -386,6 +387,19 @@ namespace LockEx.Models.Main
                 RaisePropertyChanged("GlanceEnabled");
             }
         }
+        private Glance _glance;
+        public Glance Glance
+        {
+            get
+            {
+                return _glance;
+            }
+            set
+            {
+                _glance = value;
+                RaisePropertyChanged("Glance");
+            }
+        }*/
 
         private Array _leftControlsStrings = Enum.GetValues(typeof(LeftControls));
         public Array LeftControlsStrings
@@ -403,7 +417,7 @@ namespace LockEx.Models.Main
                 return _longTextModesStrings;
             }
         }
-        private Uri defaultImageUri = new Uri("/Assets/Backgrounds/blue_mountains_lq.jpg", UriKind.Relative);
+        public Uri DefaultImageUri = new Uri("/Assets/Backgrounds/blue_mountains_lq.jpg", UriKind.Relative);
 
         public NativeAPI NAPI;
         private const string UIXMARPrefix = "res://UIXMobileAssets{ScreenResolution}!";
@@ -419,6 +433,9 @@ namespace LockEx.Models.Main
             _musicView = new MusicControlView();
             _newsView = new NewsControlView();
             _flashlight = new Flashlight();
+            /*_glance = new Glance();
+            _glance.GraceTime = TimeSpan.FromSeconds(1);
+            _glance.GlanceEvent += Glance_GlanceEvent;*/
             if (!DesignerProperties.IsInDesignTool)
             {
                 NAPI = new NativeAPI();
@@ -447,6 +464,12 @@ namespace LockEx.Models.Main
             };
         }
 
+        void Glance_GlanceEvent(object sender, Glance.GlanceEventArgs args)
+        {
+            //Debug.WriteLine(args);
+           // NAPI.TurnScreenOn(args ==Glance.GlanceEventArgs.Light);
+        }
+
         void secondsTimer_Tick(object sender, EventArgs e)
         {
             if (!SystemProtection.ScreenLocked) return;
@@ -457,14 +480,15 @@ namespace LockEx.Models.Main
 
         public void PopulateDesignerData()
         {
-            _imageUri = defaultImageUri;
+            _imageUri = DefaultImageUri;
             _isLockscreen = true;
             _longTextMode = LongTextModes.Auto;
             _globalYOffset = 0;
             _flashlightVisibleBool = true;
             _flashlight.IsTurnedOn = true;
             _leftControl = LeftControls.NewsControl;
-            _glanceEnabled = true;
+            /*_glanceEnabled = true;
+            Glance.Dark = 4;*/
             WeatherView.Entries = new ObservableCollection<WeatherControlEntry>()
             {
                 new WeatherControlEntry(DateTime.Today, WeatherControlEntry.WeatherStates.Clear, "Klarer Himmel", 20.4, 30.6),

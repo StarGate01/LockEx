@@ -15,31 +15,6 @@ using Windows.Phone.System;
 namespace LockEx.Models.MusicControl
 {
 
-    public class XNAFrameworkDispatcherService : IApplicationService
-    {
-
-        private DispatcherTimer frameworkDispatcherTimer;
-
-        public XNAFrameworkDispatcherService()
-        {
-            this.frameworkDispatcherTimer = new DispatcherTimer();
-            this.frameworkDispatcherTimer.Interval = TimeSpan.FromTicks(333333);
-            this.frameworkDispatcherTimer.Tick += frameworkDispatcherTimer_Tick;
-            FrameworkDispatcher.Update();
-        }
-
-        void frameworkDispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            if (!SystemProtection.ScreenLocked) return;
-            FrameworkDispatcher.Update();
-        }
-
-        void IApplicationService.StartService(ApplicationServiceContext context) { this.frameworkDispatcherTimer.Start(); }
-
-        void IApplicationService.StopService() { this.frameworkDispatcherTimer.Stop(); }
-
-    }
-
     public class MusicControlView : INotifyPropertyChanged
     {
 
@@ -52,6 +27,15 @@ namespace LockEx.Models.MusicControl
         };
 
         #endregion
+
+        private DispatcherTimer _XNAFrameworkDispatcher;
+        public DispatcherTimer XNAFrameworkDispatcher
+        {
+            get
+            {
+                return _XNAFrameworkDispatcher;
+            }
+        }
 
         private MediaState _playState;
         public MediaState PlayState
@@ -165,11 +149,17 @@ namespace LockEx.Models.MusicControl
             _song = song;
             _artist = artist;
             _position = position;
-            //FrameworkDispatcher.Update();
-            //MediaPlayer_ActiveSongChanged(null, null);
-            //MediaPlayer_MediaStateChanged(null, null);
+            _XNAFrameworkDispatcher = new DispatcherTimer();
+            _XNAFrameworkDispatcher.Interval = TimeSpan.FromSeconds(0.1);
+            _XNAFrameworkDispatcher.Tick += XNAFrameworkDispatcher_Tick;
             MediaPlayer.ActiveSongChanged += MediaPlayer_ActiveSongChanged;
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+        }
+
+        private void XNAFrameworkDispatcher_Tick(object sender, EventArgs e)
+        {
+            if (!SystemProtection.ScreenLocked) return;
+            FrameworkDispatcher.Update();
         }
 
         public void MediaPlayer_MediaStateChanged(object sender, EventArgs e)

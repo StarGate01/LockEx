@@ -54,34 +54,34 @@ namespace LockEx
             photoChooserTask.Show();
         }
 
-        private async void ButtonResetImage_Click(object sender, RoutedEventArgs e)
+        private void ButtonResetImage_Click(object sender, RoutedEventArgs e)
         {
             if (IsolatedStorageSettings.ApplicationSettings.Contains("ImageUri"))
             {
                 IsolatedStorageSettings.ApplicationSettings.Remove("ImageUri");
                 IsolatedStorageSettings.ApplicationSettings.Save();
                 App.MainViewModel.RaisePropertyChanged("ImageUri");
-                await RequestPermissions();
             }
         }
 
-        private async void photoChooserTask_Completed(object sender, PhotoResult e)
+        private void photoChooserTask_Completed(object sender, PhotoResult e)
         {
             if(e.ChosenPhoto != null && e.Error == null)
             {
                 IsolatedStorageFileStream stream = isoStore.OpenFile(imageFileName, FileMode.OpenOrCreate);
                 e.ChosenPhoto.CopyTo(stream);
                 stream.Close();
-                App.MainViewModel.ImageUri = new Uri("ms-appdata:///Local/" + imageFileName, UriKind.Absolute);
-                await RequestPermissions();
+                App.MainViewModel.ImageUri = new Uri(stream.Name, UriKind.Absolute);
             }
         }
 
-        private async Task RequestPermissions()
+        private void ButtonOpenSystem_Click(object sender, RoutedEventArgs e)
         {
-            bool wasLockscreen = false;
-            if (App.MainViewModel.IsLockscreen) wasLockscreen = true;
-            if (wasLockscreen) App.MainViewModel.IsLockscreen = false;
+            Launcher.LaunchUriAsync(new Uri("ms-settings-lock:")); 
+        }
+
+        private async void ButtonSetImage_Click(object sender, RoutedEventArgs e)
+        {
             try
             {
                 var isProvider = LockScreenManager.IsProvidedByCurrentApplication;
@@ -92,13 +92,20 @@ namespace LockEx
                 }
                 if (isProvider)
                 {
-                    LockScreen.SetImageUri(App.MainViewModel.ImageUri);
+                    if(App.MainViewModel.ImageUri == App.MainViewModel.DefaultImageUri)
+                    {
+                        LockScreen.SetImageUri(new Uri("ms-appx://" + App.MainViewModel.DefaultImageUri.OriginalString));
+                    }
+                    else
+                    {
+                         LockScreen.SetImageUri(new Uri("ms-appdata:///local/" + imageFileName));
+                    }
+                    App.MainViewModel.RaisePropertyChanged("IsLockscreen");
                     MessageBox.Show(AppResources.SettingBackgroundSuccess);
                 }
                 else MessageBox.Show(AppResources.SettingBackgroundError);
             }
-            catch { MessageBox.Show(AppResources.SettingBackgroundSuccess); }
-            if (wasLockscreen) App.MainViewModel.IsLockscreen = true;
+            catch { MessageBox.Show(AppResources.SettingBackgroundError); }
         }
 
 

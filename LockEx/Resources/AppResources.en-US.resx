@@ -244,7 +244,7 @@
     <value>Use "Glance"</value>
   </data>
   <data name="SettingImageNote" xml:space="preserve">
-    <value>Note: This image will be set as background for the regular lockscreen too.</value>
+    <value>Note: This image can also be set as a background for the regular lockscreen. This requires the app to be reenabled as lockscreen app.</value>
   </data>
   <data name="SettingLeftControl" xml:space="preserve">
     <value>Left side</value>
@@ -275,5 +275,11 @@
   </data>
   <data name="SettingBackgroundSuccess" xml:space="preserve">
     <value>Background image was successfully changed.</value>
+  </data>
+  <data name="SettingAsSystemBackground" xml:space="preserve">
+    <value>As system background</value>
+  </data>
+  <data name="SettingOpenSystemLock" xml:space="preserve">
+    <value>Open system settings</value>
   </data>
 </root>

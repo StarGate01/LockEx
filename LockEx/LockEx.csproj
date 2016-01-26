@@ -113,6 +113,7 @@
       <DependentUpon>ExtendedSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Flashlight.cs" />
+    <Compile Include="Glance.cs" />
     <Compile Include="Models\BadgesControlModels.cs" />
     <Compile Include="Models\DateTimeControlModels.cs" />
     <Compile Include="Models\DetailedTextControlModels.cs" />

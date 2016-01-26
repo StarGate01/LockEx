@@ -259,6 +259,15 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Als Systemhintergrund ähnelt.
+        /// </summary>
+        public static string SettingAsSystemBackground {
+            get {
+                return ResourceManager.GetString("SettingAsSystemBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Hintergrundbild konnte nicht geändert werden! ähnelt.
         /// </summary>
         public static string SettingBackgroundError {
@@ -322,7 +331,7 @@ namespace LockEx.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Hinweis: Dieses Bild wird auch als Hintergrundbild für den regulären Sperrbildschirm festgelegt. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hinweis: Dieses Bild kann auch als Hintergrundbild für den regulären Sperrbildschirm gesetzt werden. Danach muss die App neu als Sperrbildschirm-App festgelegt werden. ähnelt.
         /// </summary>
         public static string SettingImageNote {
             get {
@@ -363,6 +372,15 @@ namespace LockEx.Resources {
         public static string SettingNewsSource {
             get {
                 return ResourceManager.GetString("SettingNewsSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Systemeinstellungen öffnen ähnelt.
+        /// </summary>
+        public static string SettingOpenSystemLock {
+            get {
+                return ResourceManager.GetString("SettingOpenSystemLock", resourceCulture);
             }
         }
         
