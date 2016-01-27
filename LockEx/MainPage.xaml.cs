@@ -36,9 +36,6 @@ namespace LockEx
                 base.OnNavigatedTo(e);
                 return;
             }
-            App.MainViewModel.Flashlight.InitCamera();
-            App.MainViewModel.SecondsTimer.Start();
-            App.MainViewModel.PopulateShellChromeData();
             switch (App.MainViewModel.LeftControl)
             {
                 case MainView.LeftControls.NewsControl:
@@ -48,17 +45,14 @@ namespace LockEx
                     App.MainViewModel.WeatherView.PopulateData();
                     break;
             }
-            App.MainViewModel.MusicView.XNAFrameworkDispatcher.Start();
+            App.MainViewModel.UnFreeze();
             //if (App.MainViewModel.GlanceEnabled) App.MainViewModel.Glance.UpdateSensor.Start();
-            App.MainViewModel.GlobalYOffset = 0;
             base.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            App.MainViewModel.Flashlight.UnInitCamera();
-            App.MainViewModel.SecondsTimer.Stop();
-            App.MainViewModel.MusicView.XNAFrameworkDispatcher.Stop();
+            App.MainViewModel.Freeze();
             //App.MainViewModel.Glance.UpdateSensor.Stop();
             base.OnNavigatingFrom(e);
         }

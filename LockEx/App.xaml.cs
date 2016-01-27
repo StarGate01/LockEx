@@ -29,11 +29,23 @@ namespace LockEx
             InitializeLanguage();
             MainViewModel = new MainView();
             RootFrame.DataContext = MainViewModel;
+            RootFrame.Obscured += RootFrame_Obscured;
+            RootFrame.Unobscured += RootFrame_Unobscured;
             if (Debugger.IsAttached)
             {
                 //Application.Current.Host.Settings.EnableFrameRateCounter = true;
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
+        }
+
+        void RootFrame_Unobscured(object sender, EventArgs e)
+        {
+            MainViewModel.UnFreeze();
+        }
+
+        void RootFrame_Obscured(object sender, ObscuredEventArgs e)
+        {
+            MainViewModel.Freeze();
         }
 
         private void Application_ContractActivated(object sender, Windows.ApplicationModel.Activation.IActivatedEventArgs e)

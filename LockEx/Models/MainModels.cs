@@ -623,6 +623,29 @@ durch die Hilfe einer Gruppe lokaler Kinderdedektive unter der Führung eines ge
             return true;
         }
 
+        private object freezeLock = new object();
+
+        public void Freeze()
+        {
+            lock (freezeLock)
+            {
+                Flashlight.UnInitCamera();
+                SecondsTimer.Stop();
+                MusicView.XNAFrameworkDispatcher.Stop();
+            }
+        }
+
+        public void UnFreeze()
+        {
+            lock (freezeLock)
+            {
+                Flashlight.InitCamera();
+                secondsTimer_Tick(null, null);
+                SecondsTimer.Start();
+                MusicView.XNAFrameworkDispatcher.Start();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)
         {
