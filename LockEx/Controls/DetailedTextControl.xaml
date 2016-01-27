@@ -16,7 +16,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock FontWeight="{Binding FontWeight}" FontFamily="Segoe WP SemiLight" FontSize="24" Text="{Binding Text}" TextWrapping="Wrap" />
+                        <TextBlock FontWeight="{Binding FontWeight}" FontFamily="Segoe WP SemiLight" FontSize="24" Text="{Binding Text}" TextWrapping="{Binding TextWrapping}" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -509,9 +509,9 @@ namespace LockEx.Models.Main
             DateTimeControlView.SecondsVisible = Visibility.Visible;
             DetailedTextView.Entries = new ObservableCollection<DetailedTextControlEntry>()
             {
-                new DetailedTextControlEntry("Lockscreen fertig programmieren, und diese Zeile ist auch sehr lang", true),
-                new DetailedTextControlEntry("Zuhause, am Rechner", false),
-                new DetailedTextControlEntry("Morgen: 12:00 - 15:00 Uhr", false)
+                new DetailedTextControlEntry("Lockscreen fertig programmieren, und diese Zeile ist auch sehr lang", true, false),
+                new DetailedTextControlEntry("Zuhause, am Rechner", false, true),
+                new DetailedTextControlEntry("Morgen: 12:00 - 15:00 Uhr", false, false)
             };
             MusicView.Song = "Are We The Waiting";
             MusicView.Artist = "Green Day";
@@ -554,7 +554,8 @@ durch die Hilfe einer Gruppe lokaler Kinderdedektive unter der Führung eines ge
             {
                 newTextControlEntries.Add(new DetailedTextControlEntry(
                     snap.DetailedTexts[i].DetailedText,
-                    snap.DetailedTexts[i].IsBoldText
+                    snap.DetailedTexts[i].IsBoldText,
+                    i == 1
                 ));
             }
             DetailedTextView.Entries = newTextControlEntries;

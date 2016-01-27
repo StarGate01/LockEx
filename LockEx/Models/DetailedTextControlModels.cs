@@ -42,11 +42,33 @@ namespace LockEx.Models.DetailedTextControl
                 return Bold ? FontWeights.SemiBold : FontWeights.Normal;
             }
         }
+        private bool _wrap;
+        public bool Wrap
+        {
+            get
+            {
+                return _wrap;
+            }
+            set
+            {
+                _wrap = value;
+                RaisePropertyChanged("Wrap");
+                RaisePropertyChanged("TextWrapping");
+            }
+        }
+        public TextWrapping TextWrapping
+        {
+            get
+            {
+                return Wrap ? TextWrapping.Wrap : TextWrapping.NoWrap;
+            }
+        }
 
-        public DetailedTextControlEntry(string text, bool bold)
+        public DetailedTextControlEntry(string text, bool bold, bool wrap)
         {
             _text = text;
             _bold = bold;
+            _wrap = wrap;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

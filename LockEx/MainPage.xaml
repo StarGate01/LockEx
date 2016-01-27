@@ -38,12 +38,12 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="20" />
 				<RowDefinition Height="240" />
-				<RowDefinition Height="30" />
-				<RowDefinition Height="129" />
 				<RowDefinition Height="20" />
-				<RowDefinition Height="*" />
+				<RowDefinition Height="129" />
 				<RowDefinition Height="10" />
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="10" />
+				<RowDefinition Height="*" />
 				<RowDefinition Height="10" />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
