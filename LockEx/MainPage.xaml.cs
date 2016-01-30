@@ -52,7 +52,7 @@ namespace LockEx
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            App.MainViewModel.Freeze();
+            App.MainViewModel.Freeze(); //should be handled in unobscured
             //App.MainViewModel.Glance.UpdateSensor.Stop();
             base.OnNavigatingFrom(e);
         }

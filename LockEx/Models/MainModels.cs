@@ -178,6 +178,7 @@ namespace LockEx.Models.Main
                     IsolatedStorageSettings.ApplicationSettings.Save();
                 }
                 RaisePropertyChanged("ImageUri");
+                RaisePropertyChanged("CustomImage");
             }
         }
         private bool _isLockscreen;
@@ -418,6 +419,7 @@ namespace LockEx.Models.Main
             }
         }
         public Uri DefaultImageUri = new Uri("/Assets/Backgrounds/blue_mountains_lq.jpg", UriKind.Relative);
+        public Uri DefaultImageUriSystem = new Uri("/Assets/Backgrounds/blue_mountains_lq_system.jpg", UriKind.Relative);
 
         public NativeAPI NAPI;
         private const string UIXMARPrefix = "res://UIXMobileAssets{ScreenResolution}!";

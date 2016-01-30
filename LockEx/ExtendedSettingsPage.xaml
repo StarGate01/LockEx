@@ -75,10 +75,10 @@
                     </Border>
                     <Button Click="ButtonChooseImage_Click" x:Name="ButtonChooseImage" Content="{Binding Path=LocalizedResources.SettingChooseImage, Source={StaticResource LocalizedStrings}}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Button Click="ButtonResetImage_Click" x:Name="ButtonResetImage" Content="{Binding Path=LocalizedResources.SettingResetImage, Source={StaticResource LocalizedStrings}}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <Button Click="ButtonSetImage_Click"  x:Name="ButtonSetImage" Content="{Binding Path=LocalizedResources.SettingAsSystemBackground, Source={StaticResource LocalizedStrings}}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <!-- <Button Click="ButtonSetImage_Click"  x:Name="ButtonSetImage" Content="{Binding Path=LocalizedResources.SettingAsSystemBackground, Source={StaticResource LocalizedStrings}}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Button Click="ButtonOpenSystem_Click"  x:Name="ButtonOpenSystem" Content="{Binding Path=LocalizedResources.SettingOpenSystemLock, Source={StaticResource LocalizedStrings}}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.SettingImageNote, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top"/>
-                </Grid>
+                --></Grid>
             </phone:PivotItem>
 
             <phone:PivotItem Header="{Binding Path=LocalizedResources.SettingsAbout, Source={StaticResource LocalizedStrings}}">
