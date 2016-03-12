@@ -16,6 +16,7 @@ using Windows.Phone.System.UserProfile;
 using System.Threading;
 using System.Threading.Tasks;
 using LockEx.Resources;
+using Windows.Storage;
 
 namespace LockEx
 {
@@ -26,6 +27,7 @@ namespace LockEx
         private PhotoChooserTask photoChooserTask;
         private IsolatedStorageFile isoStore;
         private const string imageFileName = "custom_background.jpg";
+        private const string imageFileNameSystem = "custom_background_system.jpg";
 
         public ExtendedSettingsPage()
         {
@@ -69,8 +71,11 @@ namespace LockEx
             if(e.ChosenPhoto != null && e.Error == null)
             {
                 IsolatedStorageFileStream stream = isoStore.OpenFile(imageFileName, FileMode.OpenOrCreate);
+                //IsolatedStorageFileStream streamSystem = isoStore.OpenFile(imageFileNameSystem, FileMode.OpenOrCreate);
                 e.ChosenPhoto.CopyTo(stream);
                 stream.Close();
+                //e.ChosenPhoto.CopyTo(streamSystem);
+                //streamSystem.Close();
                 App.MainViewModel.ImageUri = new Uri(stream.Name, UriKind.Absolute);
             }
         }
@@ -92,13 +97,13 @@ namespace LockEx
                 }
                 if (isProvider)
                 {
-                    if(App.MainViewModel.ImageUri == App.MainViewModel.DefaultImageUri)
+                    if (App.MainViewModel.ImageUri == App.MainViewModel.DefaultImageUri)
                     {
-                        LockScreen.SetImageUri(new Uri("ms-appx://" + App.MainViewModel.DefaultImageUri.OriginalString));
+                        LockScreen.SetImageUri(new Uri("ms-appx://" + App.MainViewModel.DefaultImageUriSystem.OriginalString));
                     }
                     else
                     {
-                         LockScreen.SetImageUri(new Uri("ms-appdata:///local/" + imageFileName));
+                        LockScreen.SetImageUri(new Uri("ms-appdata:///local/" + imageFileNameSystem));
                     }
                     App.MainViewModel.RaisePropertyChanged("IsLockscreen");
                     MessageBox.Show(AppResources.SettingBackgroundSuccess);
@@ -107,8 +112,6 @@ namespace LockEx
             }
             catch { MessageBox.Show(AppResources.SettingBackgroundError); }
         }
-
-
     }
 
 }

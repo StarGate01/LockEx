@@ -141,7 +141,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Content Include="Assets\Backgrounds\blue_mountains_lq.jpg" />
+    <Content Include="Assets\Backgrounds\blue_mountains_lq.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Icons\appbar.control.fastforward.png" />
     <Content Include="Assets\Icons\appbar.control.pause.png" />
     <Content Include="Assets\Icons\appbar.control.play.png" />
