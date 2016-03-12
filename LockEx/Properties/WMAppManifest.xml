@@ -16,6 +16,7 @@
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
       <Capability Name="ID_CAP_SHELL_DEVICE_LOCK_UI_API" />
       <Capability Name="ID_CAP_CHAMBER_PROFILE_CODE_RW" />
+      <Capability Name="ID_CAP_OEMPUBLICDIRECTORY" />
       <Capability Name="ID_CAP_CAMERA"/>
     </Capabilities>
     <Tasks>
@@ -38,7 +39,7 @@
     </Tokens>
     <Extensions>
       <Extension ExtensionName="LockScreen_Application" ConsumerID="{CD4601F6-351B-43C7-9087-6B12BD98ED63}" TaskID="_default" ExtraFile="Extensions\\LockAppExtension.xml" />
-      <Extension ExtensionName="LockScreen_Background" ConsumerID="{111DFF24-AA15-4A96-8006-2BFF8122084F}" TaskID="_default" />
+      <!--<Extension ExtensionName="LockScreen_Background" ConsumerID="{111DFF24-AA15-4A96-8006-2BFF8122084F}" TaskID="_default" />-->
     </Extensions>
     <ScreenResolutions>
       <ScreenResolution Name="ID_RESOLUTION_WVGA" />

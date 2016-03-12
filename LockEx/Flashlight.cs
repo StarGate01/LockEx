@@ -19,9 +19,9 @@ namespace LockEx.Hardware
         private MediaCapture captureManager;
         private TorchControl torch;
 
-        public async Task InitCamera()
+        public void InitCamera()
         {
-            var cameraID = await GetCameraID(Windows.Devices.Enumeration.Panel.Back);
+           /* var cameraID = await GetCameraID(Windows.Devices.Enumeration.Panel.Back);
             captureManager = new MediaCapture();
             await captureManager.InitializeAsync(new MediaCaptureInitializationSettings
             {
@@ -30,15 +30,15 @@ namespace LockEx.Hardware
                 AudioDeviceId = string.Empty,
                 VideoDeviceId = cameraID.Id
             });
-            torch = captureManager.VideoDeviceController.TorchControl;
+            torch = captureManager.VideoDeviceController.TorchControl;*/
             RaisePropertyChanged("IsTurnedOn");
         }
 
         public void UnInitCamera()
         {
-            torch = null;
+            /* torch = null;
             if(captureManager!= null) captureManager.Dispose();
-            captureManager = null;
+            captureManager = null; */
             RaisePropertyChanged("IsTurnedOn");
         }
 
@@ -55,13 +55,14 @@ namespace LockEx.Hardware
         {
             get
             {
-                if (DesignerProperties.IsInDesignTool) return _isTurnedOn;
-                return torch != null && torch.Enabled;
+                return _isTurnedOn;
+               /* if (DesignerProperties.IsInDesignTool) return _isTurnedOn;
+                return torch != null && torch.Enabled;*/
             }
             set
             {
                 _isTurnedOn = value;
-                if (!DesignerProperties.IsInDesignTool && torch != null && torch.Supported) torch.Enabled = value;
+                //if (!DesignerProperties.IsInDesignTool && torch != null && torch.Supported) torch.Enabled = value;
                 RaisePropertyChanged("IsTurnedOn");
             }
         }
